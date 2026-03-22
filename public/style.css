@@ -203,17 +203,33 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 .mobile-nav {
-  display: none;
+  /* Абсолютное позиционирование — поверх контента, не сдвигает страницу */
+  position: fixed;
+  top: 68px; /* высота header */
+  left: 0;
+  right: 0;
+  z-index: 99;
   flex-direction: column;
   background: var(--bg-alt);
   border-top: 1px solid var(--border);
-  padding: 16px 24px 20px;
+  border-bottom: 2px solid var(--accent);
+  padding: 12px 24px 20px;
   gap: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  /* Скрыт по умолчанию — анимация через clip-path */
+  display: flex;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.3s ease;
+  pointer-events: none;
 }
-.mobile-nav.open { display: flex; }
+
+.mobile-nav.open {
+  clip-path: inset(0 0 0 0);
+  pointer-events: all;
+}
 
 .mobile-link {
-  padding: 12px 16px;
+  padding: 13px 16px;
   font-weight: 600;
   font-size: 15px;
   border-radius: 8px;
@@ -227,6 +243,7 @@ strong { font-weight: 600; color: var(--accent); }
   color: #fff !important;
   text-align: center;
   margin-top: 8px;
+  border-radius: 8px;
 }
 .mobile-link--accent:hover { background: var(--accent-dark) !important; }
 
@@ -574,178 +591,197 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 /* ===========================
-   APPLY / FORM
+   APPLY SECTION
 =========================== */
-.apply__google-wrap {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
+.apply { background: #f0ebf8; } /* лёгкий лавандовый — как фон Google Forms */
+
+/* ===========================
+   GOOGLE FORMS CLONE
+=========================== */
+.gform-wrap {
+  max-width: 640px;
+  margin: 0 auto;
 }
 
-.apply__google-card {
-  background: var(--bg-alt);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 44px 52px;
-  text-align: center;
-  max-width: 480px;
-  width: 100%;
-  box-shadow: var(--shadow-md);
+/* Шапка формы */
+.gform-header {
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #dadce0;
+  border-top: none;
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
-.apply__google-icon { font-size: 36px; margin-bottom: 16px; }
+.gform-header__stripe {
+  height: 10px;
+  background: var(--accent);
+}
 
-.apply__google-card h3 {
+.gform-header__body {
+  padding: 24px 24px 20px;
+}
+
+.gform-header__title {
   font-family: var(--font-d);
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
+  color: #202124;
+  margin-bottom: 8px;
+  line-height: 1.2;
 }
 
-.apply__google-card p {
+.gform-header__org {
+  font-size: 14px;
+  color: #5f6368;
+  margin-bottom: 12px;
+}
+
+.gform-header__desc {
+  font-size: 14px;
+  color: #202124;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.gform-header__req {
+  font-size: 13px;
+  color: #5f6368;
+}
+
+/* Карточка каждого вопроса */
+.gform-card {
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 24px 24px 20px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s ease;
+}
+
+.gform-card:focus-within {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26,115,232,0.12);
+}
+
+/* Текст вопроса */
+.gform-q {
   font-size: 15px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
+  font-weight: 400;
+  color: #202124;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+/* Обязательная звёздочка */
+.gform-req {
+  color: #d93025;
+  margin-left: 3px;
+}
+
+/* Поля ввода */
+.gform-input {
+  width: 100%;
+  font-family: var(--font-b);
+  font-size: 14px;
+  color: #202124;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #dadce0;
+  border-radius: 0;
+  padding: 6px 0 8px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  caret-color: #1a73e8;
+}
+
+.gform-input:focus {
+  border-bottom: 2px solid #1a73e8;
+  padding-bottom: 7px; /* компенсация за увеличение border */
+}
+
+.gform-input::placeholder { color: #80868b; }
+
+.gform-input.has-error {
+  border-bottom: 2px solid #d93025 !important;
+}
+
+.gform-textarea {
+  resize: none;
+  min-height: 100px;
   line-height: 1.6;
 }
 
-.apply__google-note {
-  display: block;
-  margin-top: 14px;
-  font-size: 13px;
-  color: var(--text-light);
-  font-style: italic;
-}
-
-.apply__divider {
-  text-align: center;
-  position: relative;
-  margin-bottom: 40px;
-}
-.apply__divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0; right: 0;
-  height: 1px;
-  background: var(--border);
-}
-.apply__divider span {
-  position: relative;
-  background: var(--bg);
-  padding: 0 16px;
-  font-size: 13px;
-  color: var(--text-light);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* ===========================
-   FORM CARD (Google-style)
-=========================== */
-.form-card {
-  max-width: 620px;
-  margin: 0 auto;
-  background: var(--bg-alt);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.form-card__stripe {
-  height: 10px;
-  background: linear-gradient(90deg, var(--accent) 0%, #2676b5 100%);
-}
-
-.form-card__body { padding: 40px 44px 44px; }
-
-.form-card__title {
-  font-family: var(--font-d);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.form-card__sub {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 32px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Fields */
-.form__field {
-  margin-bottom: 28px;
-}
-
-.form__field label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 8px;
+/* Сообщение об ошибке */
+.gform-err {
+  display: none;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #d93025;
   line-height: 1.4;
 }
 
-.form__req { color: #c0392b; margin-left: 2px; }
+.gform-err.visible { display: block; }
 
-.form__field input,
-.form__field textarea {
-  width: 100%;
-  font-family: var(--font-b);
-  font-size: 15px;
-  font-weight: 400;
-  padding: 0 0 10px 0;
-  border: none;
-  border-bottom: 1.5px solid var(--border);
-  border-radius: 0;
-  background: transparent;
-  color: var(--text);
-  outline: none;
-  transition: border-color var(--tr);
-  resize: none;
-}
-.form__field input:focus,
-.form__field textarea:focus {
-  border-bottom-color: var(--accent);
-}
-.form__field input::placeholder,
-.form__field textarea::placeholder { color: var(--text-light); }
-.form__field input.error,
-.form__field textarea.error { border-bottom-color: #c0392b; }
-
-.form__field textarea {
-  resize: vertical;
-  min-height: 120px;
-  line-height: 1.6;
-}
-
-.form__footer {
+/* Футер формы */
+.gform-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
+  padding: 20px 0 4px;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.form__note {
-  font-size: 13px;
-  color: var(--text-light);
+.gform-submit {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.gform-submit:hover {
+  background: #1557b0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.form__tagline {
+.gform-clear {
+  background: transparent;
+  color: #1a73e8;
+  border: none;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+.gform-clear:hover { background: rgba(26,115,232,0.08); }
+
+/* Ссылка на оригинал */
+.gform-alt {
   text-align: center;
   margin-top: 20px;
-  font-family: var(--font-d);
-  font-style: italic;
-  font-size: 15px;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: #5f6368;
+}
+.gform-alt a {
+  color: #1a73e8;
+  font-weight: 600;
+  margin-left: 6px;
+  transition: color 0.2s ease;
+}
+.gform-alt a:hover {
+  color: #1557b0;
+  text-decoration: underline;
 }
 
 /* ===========================
@@ -843,21 +879,23 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 @media (max-width: 700px) {
-  .header__nav      { display: none; }
-  .burger           { display: flex; }
-  .section          { padding: 72px 0; }
-  .form-card__body  { padding: 28px 22px 32px; }
-  .apply__google-card { padding: 32px 24px; }
-  .call__quote      { padding: 28px 24px; }
-  .footer__inner    { grid-template-columns: 1fr; gap: 28px; padding: 44px 24px 28px; }
-  .footer__brand    { grid-column: unset; }
+  .header__nav        { display: none; }
+  .burger             { display: flex; }
+  .section            { padding: 72px 0; }
+  .gform-header__body { padding: 20px 16px 16px; }
+  .gform-header__title { font-size: 24px; }
+  .gform-card         { padding: 20px 16px; }
+  .gform-footer       { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .gform-submit       { width: 100%; text-align: center; padding: 12px 24px; }
+  .call__quote        { padding: 28px 24px; }
+  .footer__inner      { grid-template-columns: 1fr; gap: 28px; padding: 44px 24px 28px; }
+  .footer__brand      { grid-column: unset; }
 }
 
 @media (max-width: 480px) {
-  .subjects__grid  { grid-template-columns: 1fr; }
-  .sessions__grid  { grid-template-columns: repeat(2, 1fr); }
-  .hero__actions   { flex-direction: column; }
-  .hero__title     { font-size: 34px; }
-  .form__footer    { flex-direction: column; align-items: flex-start; }
-  .btn--submit     { width: 100%; }
+  .subjects__grid   { grid-template-columns: 1fr; }
+  .sessions__grid   { grid-template-columns: repeat(2, 1fr); }
+  .hero__actions    { flex-direction: column; }
+  .hero__title      { font-size: 34px; }
+  .gform-wrap       { padding: 0 4px; }
 }

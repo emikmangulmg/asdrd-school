@@ -3,27 +3,32 @@
    script.js
 =========================== */
 
-const TOKEN_KEY = 'asdrd_admin_token';
-
-// ── Мобильное меню ────────────────────────────────────────
+// ── Мобильное меню (overlay) ──────────────────────────────
 const burger    = document.getElementById('burger');
 const mobileNav = document.getElementById('mobileNav');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-burger.addEventListener('click', () => {
+burger.addEventListener('click', (e) => {
+  e.stopPropagation();
   const isOpen = mobileNav.classList.toggle('open');
   burger.setAttribute('aria-expanded', isOpen);
+  // Анимация линий бургера
+  burger.classList.toggle('is-active', isOpen);
 });
 
+// Закрыть при клике на ссылку
 mobileLinks.forEach(link => {
   link.addEventListener('click', () => {
     mobileNav.classList.remove('open');
+    burger.classList.remove('is-active');
   });
 });
 
+// Закрыть при клике вне меню
 document.addEventListener('click', (e) => {
   if (!mobileNav.contains(e.target) && !burger.contains(e.target)) {
     mobileNav.classList.remove('open');
+    burger.classList.remove('is-active');
   }
 });
 
@@ -42,15 +47,16 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// ── Форма заявки ─────────────────────────────────────────
+// ── Форма заявки (Google Forms стиль) ────────────────────
 const form          = document.getElementById('applicationForm');
-const submitBtn     = form ? form.querySelector('button[type="submit"]') : null;
 const successBanner = document.getElementById('successBanner');
 const closeBanner   = document.getElementById('closeBanner');
 
+// Проверка поля + показ/скрытие ошибки
 function validateField(field) {
-  const value = field.value.trim();
-  let valid = true;
+  const value     = field.value.trim();
+  const errEl     = document.getElementById('err-' + field.id);
+  let   valid     = true;
 
   if (!value) {
     valid = false;
@@ -58,38 +64,66 @@ function validateField(field) {
     valid = false;
   } else if (field.type === 'number') {
     const num = parseInt(value, 10);
-    const min = parseInt(field.min, 10);
-    const max = parseInt(field.max, 10);
-    if (isNaN(num) || num < min || num > max) valid = false;
+    if (isNaN(num) || num < parseInt(field.min, 10) || num > parseInt(field.max, 10)) {
+      valid = false;
+    }
+  } else if (field.tagName === 'TEXTAREA' && value.length < 10) {
+    valid = false;
   }
 
-  field.classList.toggle('error', !valid);
+  // Google Forms стиль: красная нижняя линия + сообщение
+  if (valid) {
+    field.classList.remove('has-error');
+    if (errEl) errEl.classList.remove('visible');
+  } else {
+    field.classList.add('has-error');
+    if (errEl) errEl.classList.add('visible');
+  }
+
   return valid;
 }
 
 if (form) {
-  form.querySelectorAll('input, textarea').forEach(field => {
+  // Валидация в реальном времени
+  form.querySelectorAll('.gform-input').forEach(field => {
     field.addEventListener('blur',  () => validateField(field));
     field.addEventListener('input', () => {
-      if (field.classList.contains('error')) validateField(field);
+      if (field.classList.contains('has-error')) validateField(field);
     });
   });
 
+  // Сброс формы (кнопка "Очистить")
+  form.addEventListener('reset', () => {
+    form.querySelectorAll('.gform-input').forEach(f => {
+      f.classList.remove('has-error');
+    });
+    form.querySelectorAll('.gform-err').forEach(e => {
+      e.classList.remove('visible');
+    });
+  });
+
+  // Отправка
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const fields = form.querySelectorAll('input[required], textarea[required]');
+    // Валидируем все поля
+    const fields = form.querySelectorAll('.gform-input[required]');
     let allValid = true;
     fields.forEach(field => { if (!validateField(field)) allValid = false; });
 
     if (!allValid) {
-      const firstError = form.querySelector('.error');
+      // Скроллим к первой ошибке
+      const firstError = form.querySelector('.has-error');
       if (firstError) {
-        const top = firstError.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT - 16;
+        const top = firstError.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT - 20;
         window.scrollTo({ top, behavior: 'smooth' });
       }
       return;
     }
+
+    const submitBtn = form.querySelector('.gform-submit');
+    submitBtn.disabled    = true;
+    submitBtn.textContent = 'Отправляем...';
 
     const formData = {
       name:       form.name.value.trim(),
@@ -100,7 +134,6 @@ if (form) {
     };
 
     console.log('📤 Отправляем заявку:', formData);
-    setLoading(true);
 
     try {
       const response = await fetch('/api/apply', {
@@ -114,42 +147,35 @@ if (form) {
 
       if (response.ok && result.success) {
         form.reset();
-        form.querySelectorAll('.error').forEach(f => f.classList.remove('error'));
         showSuccessBanner();
-        setTimeout(() => alert('✦ Заявка отправлена!\n\nМы свяжемся с тобой в ближайшее время.'), 200);
       } else {
         const messages = result.errors ? result.errors.join('\n') : result.message || 'Ошибка';
         alert('Ошибка:\n' + messages);
       }
 
     } catch (err) {
-      console.error('🔌 Сетевая ошибка:', err.message);
-      alert('Не удалось отправить заявку. Попробуй через Google Form.');
+      console.error('🔌 Ошибка:', err.message);
+      alert('Не удалось отправить. Попробуйте через Google Forms.');
     } finally {
-      setLoading(false);
+      submitBtn.disabled    = false;
+      submitBtn.textContent = 'Отправить';
     }
   });
-}
-
-function setLoading(isLoading) {
-  if (!submitBtn) return;
-  submitBtn.disabled    = isLoading;
-  submitBtn.textContent = isLoading ? 'Отправляем...' : 'Отправить заявку →';
-  submitBtn.style.opacity = isLoading ? '0.7' : '1';
 }
 
 // ── Success Banner ────────────────────────────────────────
 let bannerTimer = null;
 
 function showSuccessBanner() {
+  if (!successBanner) return;
   successBanner.classList.add('show');
   clearTimeout(bannerTimer);
   bannerTimer = setTimeout(hideSuccessBanner, 5000);
 }
 
 function hideSuccessBanner() {
+  if (!successBanner) return;
   successBanner.classList.remove('show');
-  clearTimeout(bannerTimer);
 }
 
 if (closeBanner) closeBanner.addEventListener('click', hideSuccessBanner);
@@ -164,7 +190,8 @@ const observer = new IntersectionObserver((entries) => {
       const id = entry.target.getAttribute('id');
       navLinks.forEach(link => {
         const isActive = link.getAttribute('href') === '#' + id;
-        link.style.color = isActive ? 'var(--gold-light)' : '';
+        link.style.color = isActive ? 'var(--accent)' : '';
+        link.style.fontWeight = isActive ? '600' : '';
       });
     }
   });
@@ -172,7 +199,7 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach(s => observer.observe(s));
 
-// ── Анимация появления элементов ─────────────────────────
+// ── Анимация появления ────────────────────────────────────
 const animObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -185,9 +212,9 @@ const animObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 
-document.querySelectorAll('.pillar, .opp__item, .subject, .session__card, .req').forEach(el => {
+document.querySelectorAll('.pillar, .opp__item, .subject, .session__card, .req, .gform-card').forEach(el => {
   el.style.opacity    = '0';
-  el.style.transform  = 'translateY(20px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  el.style.transform  = 'translateY(18px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   animObserver.observe(el);
 });

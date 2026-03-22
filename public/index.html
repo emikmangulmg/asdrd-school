@@ -26,14 +26,16 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-    <div class="mobile-nav" id="mobileNav">
-      <a href="#about"      class="mobile-link">О колледже</a>
-      <a href="#program"    class="mobile-link">Программа</a>
-      <a href="#sessions"   class="mobile-link">Сессии</a>
-      <a href="#enrollment" class="mobile-link">Поступление</a>
-      <a href="#apply"      class="mobile-link mobile-link--accent">Подать заявку</a>
-    </div>
   </header>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ — поверх контента, вне потока -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about"      class="mobile-link">О колледже</a>
+    <a href="#program"    class="mobile-link">Программа</a>
+    <a href="#sessions"   class="mobile-link">Сессии</a>
+    <a href="#enrollment" class="mobile-link">Поступление</a>
+    <a href="#apply"      class="mobile-link mobile-link--accent">Подать заявку</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -221,65 +223,86 @@
 
   <!-- ФОРМА -->
   <section class="apply section" id="apply">
-    <div class="container">
+    <div class="gform-wrap">
 
-      <div class="apply__google-wrap">
-        <div class="apply__google-card">
-          <div class="apply__google-icon">📋</div>
-          <h3>Официальная анкета</h3>
-          <p>Заполни анкету через Google Forms — займёт несколько минут</p>
-          <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank" class="btn btn--primary btn--lg">
-            Открыть анкету →
-          </a>
-          <span class="apply__google-note">После отправки с вами свяжутся</span>
+      <!-- Карточка-шапка (как в Google Forms) -->
+      <div class="gform-header">
+        <div class="gform-header__stripe"></div>
+        <div class="gform-header__body">
+          <h1 class="gform-header__title">Анкета поступления</h1>
+          <p class="gform-header__org">Миссионерский колледж «Маранафа»</p>
+          <p class="gform-header__desc">Заполните все обязательные поля и нажмите «Отправить». После отправки с вами свяжутся.</p>
+          <p class="gform-header__req"><span class="gform-req">*</span> — обязательный вопрос</p>
         </div>
       </div>
 
-      <div class="apply__divider"><span>или заполни прямо здесь</span></div>
+      <!-- Форма -->
+      <form class="gform" id="applicationForm" novalidate>
 
-      <div class="form-card">
-        <div class="form-card__stripe"></div>
-        <div class="form-card__body">
-          <h2 class="form-card__title">Заполните анкету</h2>
-          <p class="form-card__sub">Миссионерский колледж «Маранафа»</p>
-
-          <form class="form" id="applicationForm" novalidate>
-
-            <div class="form__field">
-              <label for="name">Имя и фамилия <span class="form__req">*</span></label>
-              <input type="text" id="name" name="name" placeholder="Введите ваше полное имя" required />
-            </div>
-
-            <div class="form__field">
-              <label for="age">Возраст <span class="form__req">*</span></label>
-              <input type="number" id="age" name="age" placeholder="Введите ваш возраст" min="17" max="60" required />
-            </div>
-
-            <div class="form__field">
-              <label for="city">Город <span class="form__req">*</span></label>
-              <input type="text" id="city" name="city" placeholder="Введите ваш город" required />
-            </div>
-
-            <div class="form__field">
-              <label for="email">Адрес электронной почты <span class="form__req">*</span></label>
-              <input type="email" id="email" name="email" placeholder="example@gmail.com" required />
-            </div>
-
-            <div class="form__field">
-              <label for="motivation">Почему вы хотите поступить? <span class="form__req">*</span></label>
-              <textarea id="motivation" name="motivation" rows="6"
-                placeholder="Расскажите о своём призвании, опыте и ожиданиях от колледжа..." required></textarea>
-            </div>
-
-            <div class="form__footer">
-              <p class="form__note"><span class="form__req">*</span> Обязательные поля</p>
-              <button type="submit" class="btn btn--submit">Отправить</button>
-            </div>
-
-            <p class="form__tagline">После отправки с вами свяжутся</p>
-
-          </form>
+        <!-- Поле: Имя -->
+        <div class="gform-card">
+          <div class="gform-q">
+            Имя и фамилия <span class="gform-req">*</span>
+          </div>
+          <input class="gform-input" type="text" id="name" name="name"
+            placeholder="Ответ" required />
+          <div class="gform-err" id="err-name">Пожалуйста, заполните это поле</div>
         </div>
+
+        <!-- Поле: Возраст -->
+        <div class="gform-card">
+          <div class="gform-q">
+            Возраст <span class="gform-req">*</span>
+          </div>
+          <input class="gform-input" type="number" id="age" name="age"
+            placeholder="Ответ" min="17" max="60" required />
+          <div class="gform-err" id="err-age">Укажите корректный возраст (от 17 лет)</div>
+        </div>
+
+        <!-- Поле: Город -->
+        <div class="gform-card">
+          <div class="gform-q">
+            Город <span class="gform-req">*</span>
+          </div>
+          <input class="gform-input" type="text" id="city" name="city"
+            placeholder="Ответ" required />
+          <div class="gform-err" id="err-city">Пожалуйста, заполните это поле</div>
+        </div>
+
+        <!-- Поле: Email -->
+        <div class="gform-card">
+          <div class="gform-q">
+            Адрес электронной почты <span class="gform-req">*</span>
+          </div>
+          <input class="gform-input" type="email" id="email" name="email"
+            placeholder="example@gmail.com" required />
+          <div class="gform-err" id="err-email">Введите корректный адрес электронной почты</div>
+        </div>
+
+        <!-- Поле: Мотивация -->
+        <div class="gform-card">
+          <div class="gform-q">
+            Почему вы хотите поступить? <span class="gform-req">*</span>
+          </div>
+          <textarea class="gform-input gform-textarea" id="motivation" name="motivation"
+            placeholder="Ответ" rows="5" required></textarea>
+          <div class="gform-err" id="err-motivation">Пожалуйста, заполните это поле (минимум 10 символов)</div>
+        </div>
+
+        <!-- Футер формы -->
+        <div class="gform-footer">
+          <button type="submit" class="gform-submit">Отправить</button>
+          <button type="reset" class="gform-clear">Очистить форму</button>
+        </div>
+
+      </form>
+
+      <!-- Ссылка на официальную Google Form -->
+      <div class="gform-alt">
+        <span>Предпочитаете оригинал?</span>
+        <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank">
+          Открыть в Google Forms →
+        </a>
       </div>
 
     </div>

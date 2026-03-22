@@ -706,7 +706,7 @@ strong { font-weight: 600; color: var(--accent); }
 .form__radio-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .form__radio {
@@ -717,41 +717,47 @@ strong { font-weight: 600; color: var(--accent); }
   font-size: 15px;
   color: var(--text);
   line-height: 1.5;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1.5px solid var(--border);
-  background: #fff;
-  transition: border-color var(--tr), background var(--tr);
   user-select: none;
 }
 
-.form__radio:hover {
-  border-color: var(--accent);
-  background: var(--accent-light);
-}
-
-/* Показываем нативный input, но стилизуем его */
+/* Скрываем нативный input */
 .form__radio input[type="radio"] {
-  display: block;
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  accent-color: var(--accent);
-  cursor: pointer;
-  margin: 0;
+  display: none;
 }
 
-/* Убираем .form__radio-custom — больше не нужен */
-.form__radio-custom { display: none; }
+/* Кастомный круг */
+.form__radio-custom {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: 50%;
+  border: 2px solid #b0bac4;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color var(--tr);
+}
 
-/* Выделение выбранного варианта */
-.form__radio:has(input[type="radio"]:checked) {
+.form__radio input[type="radio"]:checked ~ .form__radio-custom,
+.form__radio input[type="radio"]:checked + .form__radio-custom {
   border-color: var(--accent);
-  background: var(--accent-light);
 }
+
+.form__radio input[type="radio"]:checked ~ .form__radio-custom::after,
+.form__radio input[type="radio"]:checked + .form__radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.form__radio:hover .form__radio-custom { border-color: var(--accent); }
 
 .form__radio--other {
-  align-items: center;
   flex-wrap: wrap;
   gap: 8px;
 }
@@ -760,7 +766,7 @@ strong { font-weight: 600; color: var(--accent); }
 .form__check-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .form__check {
@@ -770,40 +776,45 @@ strong { font-weight: 600; color: var(--accent); }
   cursor: pointer;
   font-size: 15px;
   color: var(--text);
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1.5px solid var(--border);
-  background: #fff;
-  transition: border-color var(--tr), background var(--tr);
   user-select: none;
 }
 
-.form__check:hover {
-  border-color: var(--accent);
-  background: var(--accent-light);
-}
-
 .form__check input[type="checkbox"] {
-  display: block;
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  accent-color: var(--accent);
-  cursor: pointer;
-  margin: 0;
+  display: none;
+}
+
+.form__check-custom {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
   border-radius: 4px;
+  border: 2px solid #b0bac4;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--tr);
 }
 
-/* Убираем кастомный чекбокс */
-.form__check-custom { display: none; }
-
-.form__check:has(input[type="checkbox"]:checked) {
+.form__check input[type="checkbox"]:checked + .form__check-custom {
+  background: var(--accent);
   border-color: var(--accent);
-  background: var(--accent-light);
 }
+
+.form__check input[type="checkbox"]:checked + .form__check-custom::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 5px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.form__check:hover .form__check-custom { border-color: var(--accent); }
 
 .form__check--other {
-  align-items: center;
   flex-wrap: wrap;
   gap: 8px;
 }
@@ -1099,7 +1110,7 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 /* ── Правая колонка: карта ── */
-.location__right { position: sticky; top: 88px; }
+.location__right { position: static; }
 
 .location__map-wrap {
   border-radius: var(--radius-lg);

@@ -1,9 +1,11 @@
 /* ===========================
-   МИССИОНЕРСКАЯ ШКОЛА АСДРД
-   script.js — обновлённая версия с fetch API
+   Миссионерский колледж «Маранафа»
+   script.js
 =========================== */
 
-// ── Мобильное меню (бургер) ──────────────────────────────
+const TOKEN_KEY = 'asdrd_admin_token';
+
+// ── Мобильное меню ────────────────────────────────────────
 const burger    = document.getElementById('burger');
 const mobileNav = document.getElementById('mobileNav');
 const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -11,26 +13,21 @@ const mobileLinks = document.querySelectorAll('.mobile-link');
 burger.addEventListener('click', () => {
   const isOpen = mobileNav.classList.toggle('open');
   burger.setAttribute('aria-expanded', isOpen);
-  burger.classList.toggle('active', isOpen);
 });
 
 mobileLinks.forEach(link => {
   link.addEventListener('click', () => {
     mobileNav.classList.remove('open');
-    burger.setAttribute('aria-expanded', false);
-    burger.classList.remove('active');
   });
 });
 
 document.addEventListener('click', (e) => {
   if (!mobileNav.contains(e.target) && !burger.contains(e.target)) {
     mobileNav.classList.remove('open');
-    burger.classList.remove('active');
   }
 });
 
-
-// ── Плавный скролл к якорям ──────────────────────────────
+// ── Плавный скролл с offset ───────────────────────────────
 const HEADER_HEIGHT = 68;
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -39,21 +36,18 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     if (targetId === '#') return;
     const target = document.querySelector(targetId);
     if (!target) return;
-
     e.preventDefault();
     const top = target.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT;
     window.scrollTo({ top, behavior: 'smooth' });
   });
 });
 
-
 // ── Форма заявки ─────────────────────────────────────────
 const form          = document.getElementById('applicationForm');
-const submitBtn     = form.querySelector('button[type="submit"]');
+const submitBtn     = form ? form.querySelector('button[type="submit"]') : null;
 const successBanner = document.getElementById('successBanner');
 const closeBanner   = document.getElementById('closeBanner');
 
-// Валидация отдельного поля
 function validateField(field) {
   const value = field.value.trim();
   let valid = true;
@@ -73,100 +67,76 @@ function validateField(field) {
   return valid;
 }
 
-// Подсветка ошибок при потере фокуса
-form.querySelectorAll('input, textarea').forEach(field => {
-  field.addEventListener('blur',  () => validateField(field));
-  field.addEventListener('input', () => {
-    if (field.classList.contains('error')) validateField(field);
-  });
-});
-
-// ── Отправка формы через fetch ────────────────────────────
-form.addEventListener('submit', async (e) => {
-  e.preventDefault(); // Отменяем стандартное поведение браузера
-
-  // Клиентская валидация перед отправкой
-  const fields = form.querySelectorAll('input[required], textarea[required]');
-  let allValid = true;
-
-  fields.forEach(field => {
-    if (!validateField(field)) allValid = false;
-  });
-
-  if (!allValid) {
-    const firstError = form.querySelector('.error');
-    if (firstError) {
-      const top = firstError.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT - 16;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-    return;
-  }
-
-  // Собираем данные из полей формы
-  const formData = {
-    name:       form.name.value.trim(),
-    age:        parseInt(form.age.value.trim(), 10),
-    city:       form.city.value.trim(),
-    email:      form.email.value.trim(),
-    motivation: form.motivation.value.trim(),
-  };
-
-  console.log('📤 Отправляем заявку на сервер:', formData);
-
-  // Блокируем кнопку на время запроса
-  setLoading(true);
-
-  try {
-    // ── fetch: POST-запрос на backend ────────────────────
-    const response = await fetch('/api/apply', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+if (form) {
+  form.querySelectorAll('input, textarea').forEach(field => {
+    field.addEventListener('blur',  () => validateField(field));
+    field.addEventListener('input', () => {
+      if (field.classList.contains('error')) validateField(field);
     });
+  });
 
-    // Парсим JSON-ответ от сервера
-    const result = await response.json();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    console.log('📥 Ответ сервера:', result);
+    const fields = form.querySelectorAll('input[required], textarea[required]');
+    let allValid = true;
+    fields.forEach(field => { if (!validateField(field)) allValid = false; });
 
-    if (response.ok && result.success) {
-      console.log('✅ Заявка сохранена с ID:', result.id);
-
-      form.reset();
-      form.querySelectorAll('.error').forEach(f => f.classList.remove('error'));
-
-      showSuccessBanner();
-
-      setTimeout(() => alert('✅ Заявка отправлена!\n\nМы свяжемся с вами в течение 3 рабочих дней.'), 200);
-
-    } else {
-      const messages = result.errors
-        ? result.errors.join('\n')
-        : result.message || 'Неизвестная ошибка';
-
-      console.warn('⚠️  Ошибка от сервера:', messages);
-      alert('❌ Ошибка:\n' + messages);
+    if (!allValid) {
+      const firstError = form.querySelector('.error');
+      if (firstError) {
+        const top = firstError.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT - 16;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      return;
     }
 
-  } catch (networkError) {
-    console.error('🔌 Сетевая ошибка:', networkError.message);
-    alert('❌ Не удалось отправить заявку.\nПроверьте подключение или попробуйте позже.');
+    const formData = {
+      name:       form.name.value.trim(),
+      age:        parseInt(form.age.value.trim(), 10),
+      city:       form.city.value.trim(),
+      email:      form.email.value.trim(),
+      motivation: form.motivation.value.trim(),
+    };
 
-  } finally {
-    setLoading(false);
-  }
-});
+    console.log('📤 Отправляем заявку:', formData);
+    setLoading(true);
 
+    try {
+      const response = await fetch('/api/apply', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(formData),
+      });
 
-// ── Состояние загрузки кнопки ─────────────────────────────
+      const result = await response.json();
+      console.log('📥 Ответ:', result);
+
+      if (response.ok && result.success) {
+        form.reset();
+        form.querySelectorAll('.error').forEach(f => f.classList.remove('error'));
+        showSuccessBanner();
+        setTimeout(() => alert('✦ Заявка отправлена!\n\nМы свяжемся с тобой в ближайшее время.'), 200);
+      } else {
+        const messages = result.errors ? result.errors.join('\n') : result.message || 'Ошибка';
+        alert('Ошибка:\n' + messages);
+      }
+
+    } catch (err) {
+      console.error('🔌 Сетевая ошибка:', err.message);
+      alert('Не удалось отправить заявку. Попробуй через Google Form.');
+    } finally {
+      setLoading(false);
+    }
+  });
+}
+
 function setLoading(isLoading) {
+  if (!submitBtn) return;
   submitBtn.disabled    = isLoading;
   submitBtn.textContent = isLoading ? 'Отправляем...' : 'Отправить заявку →';
   submitBtn.style.opacity = isLoading ? '0.7' : '1';
 }
-
 
 // ── Success Banner ────────────────────────────────────────
 let bannerTimer = null;
@@ -182,10 +152,9 @@ function hideSuccessBanner() {
   clearTimeout(bannerTimer);
 }
 
-closeBanner.addEventListener('click', hideSuccessBanner);
+if (closeBanner) closeBanner.addEventListener('click', hideSuccessBanner);
 
-
-// ── Активная навигация при скролле ───────────────────────
+// ── Активная навигация ────────────────────────────────────
 const sections = document.querySelectorAll('section[id]');
 const navLinks  = document.querySelectorAll('.header__nav a[href^="#"]');
 
@@ -194,33 +163,31 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       const id = entry.target.getAttribute('id');
       navLinks.forEach(link => {
-        const isActive    = link.getAttribute('href') === '#' + id;
-        link.style.color      = isActive ? 'var(--clr-accent)' : '';
-        link.style.fontWeight = isActive ? '700' : '';
+        const isActive = link.getAttribute('href') === '#' + id;
+        link.style.color = isActive ? 'var(--gold-light)' : '';
       });
     }
   });
 }, { rootMargin: '-' + HEADER_HEIGHT + 'px 0px -60% 0px' });
 
-sections.forEach(section => observer.observe(section));
+sections.forEach(s => observer.observe(s));
 
-
-// ── Анимация появления карточек ──────────────────────────
+// ── Анимация появления элементов ─────────────────────────
 const animObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
       setTimeout(() => {
         entry.target.style.opacity   = '1';
         entry.target.style.transform = 'translateY(0)';
-      }, i * 80);
+      }, i * 70);
       animObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
-document.querySelectorAll('.card, .pillar, .req').forEach(el => {
+document.querySelectorAll('.pillar, .opp__item, .subject, .session__card, .req').forEach(el => {
   el.style.opacity    = '0';
-  el.style.transform  = 'translateY(24px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  el.style.transform  = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   animObserver.observe(el);
 });

@@ -3,167 +3,277 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Миссионерская школа АСДРД</title>
+  <title>Миссионерский колледж «Маранафа»</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
   <!-- HEADER -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <div class="header__logo">✦ АСДРД</div>
+      <div class="header__logo">✦ Маранафа</div>
       <nav class="header__nav">
-        <a href="#about">О школе</a>
+        <a href="#about">О колледже</a>
         <a href="#program">Программа</a>
-        <a href="#enrollment">Набор</a>
+        <a href="#sessions">Сессии</a>
+        <a href="#enrollment">Поступление</a>
         <a href="#apply" class="nav__btn">Подать заявку</a>
       </nav>
-      <button class="burger" id="burger" aria-label="Открыть меню">
+      <button class="burger" id="burger" aria-label="Меню">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="mobile-nav" id="mobileNav">
-      <a href="#about" class="mobile-link">О школе</a>
-      <a href="#program" class="mobile-link">Программа</a>
-      <a href="#enrollment" class="mobile-link">Набор</a>
-      <a href="#apply" class="mobile-link mobile-link--accent">Подать заявку</a>
+      <a href="#about"      class="mobile-link">О колледже</a>
+      <a href="#program"    class="mobile-link">Программа</a>
+      <a href="#sessions"   class="mobile-link">Сессии</a>
+      <a href="#enrollment" class="mobile-link">Поступление</a>
+      <a href="#apply"      class="mobile-link mobile-link--accent">Подать заявку</a>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero__bg"></div>
-    <div class="container hero__content">
-      <span class="hero__tag">Адвентистская церковь</span>
-      <h1 class="hero__title">Миссионерская<br/>школа АСДРД</h1>
-      <p class="hero__subtitle">Подготовка к служению и духовному росту</p>
-      <a href="#apply" class="btn btn--primary">Подать заявку</a>
+    <div class="hero__particles">
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
     </div>
-    <div class="hero__scroll-hint">↓</div>
+    <div class="container hero__content">
+      <div class="hero__eyebrow">Кишинёв, Молдова · 2.5 года · 8 сессий</div>
+      <h1 class="hero__title">Миссионерский<br/><em>колледж «Маранафа»</em></h1>
+      <p class="hero__verse">Господь грядёт.<br/>Ты готов откликнуться?</p>
+      <p class="hero__text">Мы живём во время, когда миру как никогда нужны люди, преданные Богу, стоящие на истине и готовые откликнуться на Его призыв.</p>
+      <div class="hero__actions">
+        <a href="#apply" class="btn btn--gold">Подать заявку</a>
+        <a href="#about" class="btn btn--ghost">Узнать больше</a>
+      </div>
+    </div>
+    <div class="hero__scroll">↓</div>
   </section>
 
-  <!-- О ШКОЛЕ -->
+  <!-- ПРИЗЫВ -->
+  <section class="call section">
+    <div class="container">
+      <div class="call__inner">
+        <div class="call__cross">✦</div>
+        <blockquote class="call__quote">
+          «Если ты чувствуешь, что Бог призывает тебя выйти из зоны комфорта, учиться, служить и быть светом для своего поколения —
+          <em>это место для тебя.</em>»
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- О КОЛЛЕДЖЕ -->
   <section class="about section" id="about">
     <div class="container">
-      <div class="section-label">О школе</div>
+      <div class="section-label">О колледже</div>
       <div class="about__grid">
         <div class="about__text">
-          <h2 class="section-title">Место, где рождается призвание</h2>
-          <p>Миссионерская школа АСДРД — это пространство живой веры, где каждый может углубить своё понимание Слова Божьего, укрепить молитвенную жизнь и получить практические навыки для служения людям.</p>
-          <p>Мы верим, что каждый верующий призван нести свет. Наша задача — помочь вам найти своё место в этом призвании.</p>
+          <h2 class="section-title">Место обучения,<br/>роста и призвания</h2>
+          <p>Маранафа — это не просто учебное заведение. Это пространство, где молодые люди с живой, осознанной верой открывают своё призвание и готовятся к служению другим.</p>
+          <p>Здесь не пассивная вера — а <strong>живая и действующая.</strong> Каждый студент проходит путь от личного роста к конкретному служению, от изучения Слова к его воплощению в жизнь.</p>
         </div>
         <div class="about__pillars">
           <div class="pillar">
             <div class="pillar__icon">📖</div>
             <div class="pillar__body">
-              <h3>Библия</h3>
-              <p>Глубокое изучение Писания как основы жизни и служения</p>
+              <h3>Слово Божье</h3>
+              <p>Глубокое изучение Писания как основы жизни и миссии</p>
             </div>
           </div>
           <div class="pillar">
-            <div class="pillar__icon">🙏</div>
+            <div class="pillar__icon">🔥</div>
             <div class="pillar__body">
-              <h3>Молитва</h3>
-              <p>Развитие живых молитвенных отношений с Богом</p>
+              <h3>Живая вера</h3>
+              <p>Не теория, а личные отношения с Богом в каждом дне</p>
             </div>
           </div>
           <div class="pillar">
             <div class="pillar__icon">🌍</div>
             <div class="pillar__body">
-              <h3>Практика</h3>
-              <p>Реальный миссионерский опыт в общинах и на полях</p>
+              <h3>Миссия</h3>
+              <p>Практическое служение и подготовка к работе на полях</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ВОЗМОЖНОСТИ -->
+  <section class="opportunities section section--dark" id="opportunities">
+    <div class="container">
+      <div class="section-label">Что тебя ждёт</div>
+      <h2 class="section-title section-title--light section-title--center">Возможности колледжа</h2>
+      <div class="opp__grid">
+        <div class="opp__item">
+          <span class="opp__num">01</span>
+          <h3>Изучение Слова Божьего</h3>
+          <p>Систематическое и углублённое погружение в Библию</p>
+        </div>
+        <div class="opp__item">
+          <span class="opp__num">02</span>
+          <h3>Духовный рост</h3>
+          <p>Личные дисциплины, наставничество и духовные практики</p>
+        </div>
+        <div class="opp__item">
+          <span class="opp__num">03</span>
+          <h3>Миссионерская подготовка</h3>
+          <p>Теория и практика миссии в современном мире</p>
+        </div>
+        <div class="opp__item">
+          <span class="opp__num">04</span>
+          <h3>Практическое служение</h3>
+          <p>Реальный опыт работы в общинах и на полях</p>
+        </div>
+        <div class="opp__item">
+          <span class="opp__num">05</span>
+          <h3>Сообщество единомышленников</h3>
+          <p>Братья и сёстры, идущие одним путём призвания</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ПРОГРАММА -->
-  <section class="program section section--alt" id="program">
+  <section class="program section" id="program">
     <div class="container">
-      <div class="section-label">Программа</div>
-      <h2 class="section-title section-title--center">Три направления обучения</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card__num">01</div>
-          <div class="card__icon">📚</div>
-          <h3 class="card__title">Обучение</h3>
-          <p class="card__text">Систематическое изучение Библии, основ адвентистского вероучения, герменевтики и истории церкви. Лекции, семинары и самостоятельная работа.</p>
-          <ul class="card__list">
-            <li>Библейские курсы</li>
-            <li>Доктринальное учение</li>
-            <li>История миссии</li>
-          </ul>
+      <div class="section-label">Программа обучения</div>
+      <h2 class="section-title">8 сессий · 2.5 года<br/>Русский и английский</h2>
+      <div class="subjects__grid">
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>Библиология</span>
         </div>
-        <div class="card card--accent">
-          <div class="card__num">02</div>
-          <div class="card__icon">🤝</div>
-          <h3 class="card__title">Практика</h3>
-          <p class="card__text">Живая миссия в городах и сёлах: евангельские программы, социальное служение, работа с молодёжью и семьями.</p>
-          <ul class="card__list">
-            <li>Евангельские кампании</li>
-            <li>Социальные проекты</li>
-            <li>Работа в общинах</li>
-          </ul>
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>Христология</span>
         </div>
-        <div class="card">
-          <div class="card__num">03</div>
-          <div class="card__icon">✨</div>
-          <h3 class="card__title">Духовная жизнь</h3>
-          <p class="card__text">Личное духовное развитие через утренние богослужения, молитвенные часы и общение с наставниками и единомышленниками.</p>
-          <ul class="card__list">
-            <li>Утренние молитвы</li>
-            <li>Духовные ретриты</li>
-            <li>Наставничество</li>
-          </ul>
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>История церкви</span>
+        </div>
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>Апологетика</span>
+        </div>
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>Музыка в евангелизации</span>
+        </div>
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>Лидерство и этика</span>
+        </div>
+        <div class="subject">
+          <div class="subject__icon">✦</div>
+          <span>Миссионерские служения</span>
+        </div>
+        <div class="subject subject--more">
+          <div class="subject__icon">+</div>
+          <span>И многое другое</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- НАБОР -->
+  <!-- СЕССИИ -->
+  <section class="sessions section section--dark" id="sessions">
+    <div class="container">
+      <div class="section-label">Расписание</div>
+      <h2 class="section-title section-title--light section-title--center">Даты сессий</h2>
+      <div class="sessions__grid">
+        <div class="session__card">
+          <span class="session__num">I</span>
+          <span class="session__date">Январь 2027</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">II</span>
+          <span class="session__date">Май 2027</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">III</span>
+          <span class="session__date">Июль 2027</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">IV</span>
+          <span class="session__date">Декабрь 2027</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">V</span>
+          <span class="session__date">Апрель 2028</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">VI</span>
+          <span class="session__date">Июль 2028</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">VII</span>
+          <span class="session__date">Январь 2029</span>
+        </div>
+        <div class="session__card">
+          <span class="session__num">VIII</span>
+          <span class="session__date">Апрель 2029</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОСТУПЛЕНИЕ -->
   <section class="enrollment section" id="enrollment">
     <div class="container">
       <div class="enrollment__inner">
-        <div class="section-label">Набор учеников</div>
-        <h2 class="section-title">Мы ждём тех,<br/>кто готов служить</h2>
+        <div class="section-label">Условия поступления</div>
+        <h2 class="section-title">Дверь открыта<br/>для тебя</h2>
         <div class="requirements">
           <div class="req">
-            <span class="req__check">✓</span>
-            <span>Возраст от 18 до 35 лет</span>
+            <span class="req__check">✦</span>
+            <span>Членство в церкви АСД</span>
           </div>
           <div class="req">
-            <span class="req__check">✓</span>
-            <span>Искреннее желание служить Богу и людям</span>
+            <span class="req__check">✦</span>
+            <span>Возраст от 17 лет</span>
           </div>
           <div class="req">
-            <span class="req__check">✓</span>
-            <span>Членство или активное посещение церкви АСД</span>
+            <span class="req__check">✦</span>
+            <span>Стоимость — около 80 евро за сессию</span>
           </div>
           <div class="req">
-            <span class="req__check">✓</span>
-            <span>Готовность к интенсивному обучению и поездкам</span>
+            <span class="req__check">✦</span>
+            <span>Локация — Кишинёв, Молдова</span>
           </div>
           <div class="req">
-            <span class="req__check">✓</span>
-            <span>Рекомендация пастора или старейшины общины</span>
+            <span class="req__check">✦</span>
+            <span>Живая, осознанная вера и желание служить</span>
           </div>
         </div>
-        <a href="#apply" class="btn btn--primary">Заполнить анкету</a>
+        <a href="#apply" class="btn btn--gold">Откликнуться на призыв</a>
       </div>
     </div>
   </section>
 
-  <!-- ФОРМА -->
-  <section class="apply section section--alt" id="apply">
+  <!-- ФОРМА ЗАЯВКИ -->
+  <section class="apply section section--dark" id="apply">
     <div class="container">
       <div class="section-label">Заявка</div>
-      <h2 class="section-title section-title--center">Сделайте первый шаг</h2>
-      <p class="apply__subtitle">Заполните форму — мы свяжемся с вами в течение 3 рабочих дней</p>
+      <h2 class="section-title section-title--light section-title--center">Откликнуться на призыв</h2>
+      <p class="apply__subtitle">Заполни форму — мы свяжемся с тобой в течение нескольких дней</p>
+
+      <!-- Ссылка на Google Form -->
+      <div class="apply__google">
+        <p>Ты также можешь заполнить анкету через Google Form:</p>
+        <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank" class="btn btn--gold btn--lg">
+          Открыть анкету →
+        </a>
+      </div>
+
+      <div class="apply__divider"><span>или заполни здесь</span></div>
+
       <form class="form" id="applicationForm" novalidate>
         <div class="form__row">
           <div class="form__group">
@@ -172,13 +282,13 @@
           </div>
           <div class="form__group">
             <label for="age">Возраст</label>
-            <input type="number" id="age" name="age" placeholder="22" min="18" max="35" required />
+            <input type="number" id="age" name="age" placeholder="20" min="17" max="60" required />
           </div>
         </div>
         <div class="form__row">
           <div class="form__group">
             <label for="city">Город</label>
-            <input type="text" id="city" name="city" placeholder="Москва" required />
+            <input type="text" id="city" name="city" placeholder="Кишинёв" required />
           </div>
           <div class="form__group">
             <label for="email">Email</label>
@@ -186,12 +296,13 @@
           </div>
         </div>
         <div class="form__group form__group--full">
-          <label for="motivation">Почему хотите поступить?</label>
-          <textarea id="motivation" name="motivation" rows="5" placeholder="Расскажите о своём призвании, опыте и ожиданиях от школы..." required></textarea>
+          <label for="motivation">Расскажи о своём призвании</label>
+          <textarea id="motivation" name="motivation" rows="5" placeholder="Почему ты хочешь поступить? Как ты ощущаешь призыв Бога в своей жизни?..." required></textarea>
         </div>
         <div class="form__submit">
-          <button type="submit" class="btn btn--primary btn--lg">Отправить заявку →</button>
+          <button type="submit" class="btn btn--gold btn--lg">Отправить заявку →</button>
         </div>
+        <p class="form__tagline">Дверь открыта. Призыв звучит.</p>
       </form>
     </div>
   </section>
@@ -199,8 +310,8 @@
   <!-- SUCCESS BANNER -->
   <div class="success-banner" id="successBanner">
     <div class="success-banner__inner">
-      <span class="success-banner__icon">🎉</span>
-      <p>Заявка отправлена! Мы свяжемся с вами в ближайшее время.</p>
+      <span>✦</span>
+      <p>Заявка отправлена! Мы свяжемся с тобой в ближайшее время.</p>
       <button class="success-banner__close" id="closeBanner">✕</button>
     </div>
   </div>
@@ -209,23 +320,23 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <div class="footer__logo">✦ АСДРД</div>
-        <p>Миссионерская школа<br/>Адвентистов Седьмого Дня</p>
+        <div class="footer__logo">✦ Маранафа</div>
+        <p>Миссионерский колледж<br/>Кишинёв, Молдова</p>
       </div>
       <div class="footer__contact">
         <div class="footer__contact-title">Контакты</div>
-        <a href="mailto:school@asdrd.ru">school@asdrd.ru</a>
-        <a href="tel:+79001234567">+7 (900) 123-45-67</a>
+        <a href="mailto:maranathacollege@gmail.com">maranathacollege@gmail.com</a>
+        <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank">Анкета поступления</a>
       </div>
       <div class="footer__nav">
-        <a href="#about">О школе</a>
+        <a href="#about">О колледже</a>
         <a href="#program">Программа</a>
-        <a href="#enrollment">Набор</a>
+        <a href="#sessions">Сессии</a>
         <a href="#apply">Заявка</a>
       </div>
     </div>
     <div class="footer__bottom">
-      <div class="container">© 2025 Миссионерская школа АСДРД. Все права защищены.</div>
+      <div class="container">© 2025 Миссионерский колледж «Маранафа». Господь грядёт.</div>
     </div>
   </footer>
 

@@ -14,7 +14,10 @@
   <!-- HEADER -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <div class="header__logo">✦ Маранафа</div>
+      <div class="header__logo">
+        <img src="logo.png" alt="Маранафа" class="header__logo-img" />
+        <span>Маранафа</span>
+      </div>
       <nav class="header__nav">
         <a href="#about">О колледже</a>
         <a href="#program">Программа</a>
@@ -41,7 +44,10 @@
   <section class="hero" id="hero">
     <div class="hero__bg"></div>
     <div class="container hero__content">
-      <span class="hero__tag">Хынчешты, Молдова · 2.5 года · 8 сессий</span>
+      <div class="hero__brand">
+        <img src="logo.png" alt="Маранафа" class="hero__logo" />
+        <span class="hero__tag">Хынчешты, Молдова · 2.5 года · 8 сессий</span>
+      </div>
       <h1 class="hero__title">Миссионерский<br/><em>колледж «Маранафа»</em></h1>
       <p class="hero__verse">Господь грядёт. Ты готов откликнуться?</p>
       <p class="hero__text">Мы живём во время, когда миру как никогда нужны люди, преданные Богу, стоящие на истине и готовые откликнуться на Его призыв.</p>
@@ -222,86 +228,210 @@
   </section>
 
   <!-- ФОРМА -->
-  <section class="apply section" id="apply">
-    <div class="gform-wrap">
+  <section class="apply section section--alt" id="apply">
+    <div class="container">
+      <div class="section-label">Заявка</div>
+      <h2 class="section-title section-title--center">Анкета поступления</h2>
+      <p class="apply__subtitle">Заполните все поля и нажмите «Отправить». После отправки с вами свяжутся.</p>
 
-      <!-- Карточка-шапка (как в Google Forms) -->
-      <div class="gform-header">
-        <div class="gform-header__stripe"></div>
-        <div class="gform-header__body">
-          <h1 class="gform-header__title">Анкета поступления</h1>
-          <p class="gform-header__org">Миссионерский колледж «Маранафа»</p>
-          <p class="gform-header__desc">Заполните все обязательные поля и нажмите «Отправить». После отправки с вами свяжутся.</p>
-          <p class="gform-header__req"><span class="gform-req">*</span> — обязательный вопрос</p>
+      <div class="form-card">
+        <div class="form-card__stripe"></div>
+        <div class="form-card__body">
+
+          <form class="form" id="applicationForm" novalidate>
+
+            <!-- ФИО -->
+            <div class="form__field">
+              <label for="name">ФИО <span class="form__req">*</span></label>
+              <input class="form__input" type="text" id="name" name="name" placeholder="Введите полное имя" required />
+              <div class="form__err" id="err-name">Пожалуйста, заполните это поле</div>
+            </div>
+
+            <!-- Дата рождения -->
+            <div class="form__field">
+              <label for="birthdate">Дата рождения <span class="form__req">*</span></label>
+              <input class="form__input" type="date" id="birthdate" name="birthdate" required />
+              <div class="form__err" id="err-birthdate">Укажите дату рождения</div>
+            </div>
+
+            <!-- Место проживания -->
+            <div class="form__field">
+              <label for="city">Место проживания (страна, город) <span class="form__req">*</span></label>
+              <input class="form__input" type="text" id="city" name="city" placeholder="например: Молдова, Кишинёв" required />
+              <div class="form__err" id="err-city">Укажите страну и город</div>
+            </div>
+
+            <!-- Email -->
+            <div class="form__field">
+              <label for="email">Email <span class="form__req">*</span></label>
+              <input class="form__input" type="email" id="email" name="email" placeholder="example@gmail.com" required />
+              <div class="form__err" id="err-email">Введите корректный адрес</div>
+            </div>
+
+            <!-- Телефон -->
+            <div class="form__field">
+              <label for="phone">Телефон (WhatsApp / Telegram / Viber) <span class="form__req">*</span></label>
+              <input class="form__input" type="tel" id="phone" name="phone" placeholder="+373 XX XXX XXX" required />
+              <div class="form__err" id="err-phone">Укажите номер телефона</div>
+            </div>
+
+            <!-- Семейное положение -->
+            <div class="form__field">
+              <label>Семейное положение <span class="form__req">*</span></label>
+              <div class="form__radio-group">
+                <label class="form__radio">
+                  <input type="radio" name="marital" value="married" required />
+                  <span class="form__radio-custom"></span>
+                  Женат / замужем
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="marital" value="single" />
+                  <span class="form__radio-custom"></span>
+                  Не женат / не замужем
+                </label>
+              </div>
+              <div class="form__err" id="err-marital">Выберите один из вариантов</div>
+            </div>
+
+            <!-- Языки -->
+            <div class="form__field">
+              <label for="languages">Язык(и), на которых вы разговариваете <span class="form__req">*</span></label>
+              <input class="form__input" type="text" id="languages" name="languages" placeholder="например: русский, румынский, английский" required />
+              <div class="form__err" id="err-languages">Укажите языки</div>
+            </div>
+
+            <!-- Членство в церкви -->
+            <div class="form__field">
+              <label>Являетесь ли вы членом церкви АСДРД? <span class="form__req">*</span></label>
+              <div class="form__radio-group">
+                <label class="form__radio">
+                  <input type="radio" name="church_member" value="yes" required />
+                  <span class="form__radio-custom"></span>
+                  Да
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="church_member" value="no" />
+                  <span class="form__radio-custom"></span>
+                  Нет
+                </label>
+                <label class="form__radio form__radio--other">
+                  <input type="radio" name="church_member" value="other" />
+                  <span class="form__radio-custom"></span>
+                  Другое:
+                  <input class="form__input form__input--inline" type="text" name="church_member_other" placeholder="уточните" />
+                </label>
+              </div>
+              <div class="form__err" id="err-church_member">Выберите один из вариантов</div>
+            </div>
+
+            <!-- Другие миссионерские школы -->
+            <div class="form__field">
+              <label>Проходили ли вы обучение в других миссионерских школах? <span class="form__req">*</span></label>
+              <div class="form__radio-group">
+                <label class="form__radio">
+                  <input type="radio" name="prev_school" value="yes" required />
+                  <span class="form__radio-custom"></span>
+                  Да
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="prev_school" value="no" />
+                  <span class="form__radio-custom"></span>
+                  Нет
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="prev_school" value="incomplete" />
+                  <span class="form__radio-custom"></span>
+                  Поступил(а), но не окончил(а)
+                </label>
+              </div>
+              <div class="form__err" id="err-prev_school">Выберите один из вариантов</div>
+            </div>
+
+            <!-- Сферы служения -->
+            <div class="form__field">
+              <label>В каких сферах вы уже служили в церкви? <span class="form__req">*</span></label>
+              <div class="form__check-group">
+                <label class="form__check">
+                  <input type="checkbox" name="ministry" value="evangelism" />
+                  <span class="form__check-custom"></span>
+                  Евангелизация
+                </label>
+                <label class="form__check">
+                  <input type="checkbox" name="ministry" value="children" />
+                  <span class="form__check-custom"></span>
+                  Дети
+                </label>
+                <label class="form__check">
+                  <input type="checkbox" name="ministry" value="music" />
+                  <span class="form__check-custom"></span>
+                  Музыка
+                </label>
+                <label class="form__check">
+                  <input type="checkbox" name="ministry" value="social" />
+                  <span class="form__check-custom"></span>
+                  Помощь нуждающимся
+                </label>
+                <label class="form__check form__check--other">
+                  <input type="checkbox" name="ministry" value="other" id="ministry_other_cb" />
+                  <span class="form__check-custom"></span>
+                  Другое:
+                  <input class="form__input form__input--inline" type="text" name="ministry_other" placeholder="укажите" />
+                </label>
+              </div>
+              <div class="form__err" id="err-ministry">Выберите хотя бы один вариант</div>
+            </div>
+
+            <!-- Ограничения по здоровью -->
+            <div class="form__field">
+              <label>Есть ли у вас ограничения по здоровью, о которых нам важно знать? <span class="form__req">*</span></label>
+              <div class="form__radio-group">
+                <label class="form__radio">
+                  <input type="radio" name="health" value="yes" required />
+                  <span class="form__radio-custom"></span>
+                  Да
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="health" value="no" />
+                  <span class="form__radio-custom"></span>
+                  Нет
+                </label>
+                <label class="form__radio form__radio--other">
+                  <input type="radio" name="health" value="other" />
+                  <span class="form__radio-custom"></span>
+                  Другое:
+                  <input class="form__input form__input--inline" type="text" name="health_other" placeholder="уточните" />
+                </label>
+              </div>
+              <div class="form__err" id="err-health">Выберите один из вариантов</div>
+            </div>
+
+            <!-- Мотивация -->
+            <div class="form__field">
+              <label for="motivation">Почему вы хотите поступить? <span class="form__req">*</span></label>
+              <textarea class="form__input form__textarea" id="motivation" name="motivation"
+                placeholder="Расскажите о своём призвании и ожиданиях..." required></textarea>
+              <div class="form__err" id="err-motivation">Расскажите подробнее (минимум 10 символов)</div>
+            </div>
+
+            <!-- Кнопки -->
+            <div class="form__footer">
+              <p class="form__note"><span class="form__req">*</span> Обязательные поля</p>
+              <div class="form__actions">
+                <button type="reset" class="btn btn--outline">Очистить</button>
+                <button type="submit" class="btn btn--primary">Отправить заявку</button>
+              </div>
+            </div>
+
+            <p class="form__tagline">Дверь открыта. Призыв звучит.</p>
+
+          </form>
         </div>
       </div>
 
-      <!-- Форма -->
-      <form class="gform" id="applicationForm" novalidate>
-
-        <!-- Поле: Имя -->
-        <div class="gform-card">
-          <div class="gform-q">
-            Имя и фамилия <span class="gform-req">*</span>
-          </div>
-          <input class="gform-input" type="text" id="name" name="name"
-            placeholder="Ответ" required />
-          <div class="gform-err" id="err-name">Пожалуйста, заполните это поле</div>
-        </div>
-
-        <!-- Поле: Возраст -->
-        <div class="gform-card">
-          <div class="gform-q">
-            Возраст <span class="gform-req">*</span>
-          </div>
-          <input class="gform-input" type="number" id="age" name="age"
-            placeholder="Ответ" min="17" max="60" required />
-          <div class="gform-err" id="err-age">Укажите корректный возраст (от 17 лет)</div>
-        </div>
-
-        <!-- Поле: Город -->
-        <div class="gform-card">
-          <div class="gform-q">
-            Город <span class="gform-req">*</span>
-          </div>
-          <input class="gform-input" type="text" id="city" name="city"
-            placeholder="Ответ" required />
-          <div class="gform-err" id="err-city">Пожалуйста, заполните это поле</div>
-        </div>
-
-        <!-- Поле: Email -->
-        <div class="gform-card">
-          <div class="gform-q">
-            Адрес электронной почты <span class="gform-req">*</span>
-          </div>
-          <input class="gform-input" type="email" id="email" name="email"
-            placeholder="example@gmail.com" required />
-          <div class="gform-err" id="err-email">Введите корректный адрес электронной почты</div>
-        </div>
-
-        <!-- Поле: Мотивация -->
-        <div class="gform-card">
-          <div class="gform-q">
-            Почему вы хотите поступить? <span class="gform-req">*</span>
-          </div>
-          <textarea class="gform-input gform-textarea" id="motivation" name="motivation"
-            placeholder="Ответ" rows="5" required></textarea>
-          <div class="gform-err" id="err-motivation">Пожалуйста, заполните это поле (минимум 10 символов)</div>
-        </div>
-
-        <!-- Футер формы -->
-        <div class="gform-footer">
-          <button type="submit" class="gform-submit">Отправить</button>
-          <button type="reset" class="gform-clear">Очистить форму</button>
-        </div>
-
-      </form>
-
-      <!-- Ссылка на официальную Google Form -->
-      <div class="gform-alt">
-        <span>Предпочитаете оригинал?</span>
-        <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank">
-          Открыть в Google Forms →
+      <div class="apply__glink">
+        <span>Или заполните официальную анкету:</span>
+        <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank" class="btn btn--ghost-blue">
+          Открыть Google Forms →
         </a>
       </div>
 
@@ -321,7 +451,10 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <div class="footer__logo">✦ Маранафа</div>
+        <div class="footer__logo">
+          <img src="logo.png" alt="Маранафа" class="footer__logo-img" />
+          <span>Маранафа</span>
+        </div>
         <p>Миссионерский колледж<br/>г. Хынчешты, Республика Молдова</p>
       </div>
       <div class="footer__contact">

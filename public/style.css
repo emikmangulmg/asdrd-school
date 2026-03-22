@@ -151,10 +151,18 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 .header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-d);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--accent);
+}
+.header__logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
 
 .header__nav {
@@ -266,6 +274,20 @@ strong { font-weight: 600; color: var(--accent); }
     radial-gradient(ellipse 60% 60% at 80% 40%, rgba(201,148,42,0.18) 0%, transparent 65%),
     radial-gradient(ellipse 40% 40% at 10% 80%, rgba(255,255,255,0.05) 0%, transparent 60%);
   pointer-events: none;
+}
+
+.hero__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.hero__logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
 }
 
 .hero__content {
@@ -591,197 +613,262 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 /* ===========================
-   APPLY SECTION
+   APPLY / FORM SECTION
 =========================== */
-.apply { background: #f0ebf8; } /* лёгкий лавандовый — как фон Google Forms */
-
-/* ===========================
-   GOOGLE FORMS CLONE
-=========================== */
-.gform-wrap {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-/* Шапка формы */
-.gform-header {
-  background: #fff;
-  border-radius: 8px 8px 0 0;
-  border: 1px solid #dadce0;
-  border-top: none;
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-
-.gform-header__stripe {
-  height: 10px;
-  background: var(--accent);
-}
-
-.gform-header__body {
-  padding: 24px 24px 20px;
-}
-
-.gform-header__title {
-  font-family: var(--font-d);
-  font-size: 32px;
-  font-weight: 700;
-  color: #202124;
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.gform-header__org {
-  font-size: 14px;
-  color: #5f6368;
-  margin-bottom: 12px;
-}
-
-.gform-header__desc {
-  font-size: 14px;
-  color: #202124;
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
-
-.gform-header__req {
-  font-size: 13px;
-  color: #5f6368;
-}
-
-/* Карточка каждого вопроса */
-.gform-card {
-  background: #fff;
-  border: 1px solid #dadce0;
-  border-radius: 8px;
-  padding: 24px 24px 20px;
-  margin-bottom: 12px;
-  transition: box-shadow 0.2s ease;
-}
-
-.gform-card:focus-within {
-  border-color: #1a73e8;
-  box-shadow: 0 0 0 2px rgba(26,115,232,0.12);
-}
-
-/* Текст вопроса */
-.gform-q {
+.apply__subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: -12px;
+  margin-bottom: 40px;
   font-size: 15px;
-  font-weight: 400;
-  color: #202124;
-  margin-bottom: 14px;
-  line-height: 1.5;
 }
 
-/* Обязательная звёздочка */
-.gform-req {
-  color: #d93025;
-  margin-left: 3px;
+.form-card {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--bg-alt);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
 }
 
-/* Поля ввода */
-.gform-input {
-  width: 100%;
-  font-family: var(--font-b);
-  font-size: 14px;
-  color: #202124;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #dadce0;
-  border-radius: 0;
-  padding: 6px 0 8px;
-  outline: none;
-  transition: border-color 0.15s ease;
-  caret-color: #1a73e8;
+.form-card__stripe {
+  height: 8px;
+  background: linear-gradient(90deg, var(--accent) 0%, #2676b5 100%);
 }
 
-.gform-input:focus {
-  border-bottom: 2px solid #1a73e8;
-  padding-bottom: 7px; /* компенсация за увеличение border */
+.form-card__body { padding: 36px 40px 40px; }
+
+/* ── Поля формы ── */
+.form__field {
+  margin-bottom: 28px;
 }
 
-.gform-input::placeholder { color: #80868b; }
-
-.gform-input.has-error {
-  border-bottom: 2px solid #d93025 !important;
-}
-
-.gform-textarea {
-  resize: none;
-  min-height: 100px;
-  line-height: 1.6;
-}
-
-/* Сообщение об ошибке */
-.gform-err {
-  display: none;
-  margin-top: 8px;
-  font-size: 12px;
-  color: #d93025;
+.form__field label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
   line-height: 1.4;
 }
 
-.gform-err.visible { display: block; }
+.form__req { color: #c0392b; margin-left: 2px; }
 
-/* Футер формы */
-.gform-footer {
+.form__input {
+  width: 100%;
+  font-family: var(--font-b);
+  font-size: 15px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--tr), box-shadow var(--tr);
+}
+
+.form__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(29,92,143,0.1);
+}
+
+.form__input::placeholder { color: var(--text-light); }
+.form__input.has-error { border-color: #c0392b; }
+
+.form__textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.65;
+}
+
+/* Inline input (для "Другое") */
+.form__input--inline {
+  width: auto;
+  flex: 1;
+  padding: 4px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  min-width: 120px;
+}
+
+/* Ошибка */
+.form__err {
+  display: none;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #c0392b;
+}
+.form__err.visible { display: block; }
+
+/* ── Радио-кнопки ── */
+.form__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form__radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.form__radio input[type="radio"] { display: none; }
+
+.form__radio-custom {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color var(--tr);
+}
+
+.form__radio input[type="radio"]:checked + .form__radio-custom {
+  border-color: var(--accent);
+}
+
+.form__radio input[type="radio"]:checked + .form__radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.form__radio--other {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Чекбоксы ── */
+.form__check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form__check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.form__check input[type="checkbox"] { display: none; }
+
+.form__check-custom {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--tr);
+}
+
+.form__check input[type="checkbox"]:checked + .form__check-custom {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.form__check input[type="checkbox"]:checked + .form__check-custom::after {
+  content: '';
+  position: absolute;
+  top: 1px; left: 4px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.form__check--other {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Футер формы ── */
+.form__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
   flex-wrap: wrap;
   gap: 12px;
+  margin-top: 8px;
 }
 
-.gform-submit {
-  background: #1a73e8;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 24px;
-  font-family: var(--font-b);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-.gform-submit:hover {
-  background: #1557b0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+.form__note {
+  font-size: 13px;
+  color: var(--text-light);
 }
 
-.gform-clear {
-  background: transparent;
-  color: #1a73e8;
-  border: none;
-  font-family: var(--font-b);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 10px 12px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
+.form__actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
-.gform-clear:hover { background: rgba(26,115,232,0.08); }
 
-/* Ссылка на оригинал */
-.gform-alt {
+.form__tagline {
   text-align: center;
   margin-top: 20px;
-  font-size: 13px;
-  color: #5f6368;
+  font-family: var(--font-d);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-muted);
 }
-.gform-alt a {
-  color: #1a73e8;
-  font-weight: 600;
-  margin-left: 6px;
-  transition: color 0.2s ease;
+
+/* Outline button */
+.btn--outline {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  padding: 11px 22px;
 }
-.gform-alt a:hover {
-  color: #1557b0;
-  text-decoration: underline;
+.btn--outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: none;
+}
+
+/* Ghost blue (Google Forms link) */
+.apply__glink {
+  text-align: center;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.btn--ghost-blue {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  padding: 10px 22px;
+  font-size: 14px;
+}
+.btn--ghost-blue:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
 }
 
 /* ===========================
@@ -831,11 +918,21 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 .footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-d);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 10px;
+}
+.footer__logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
 }
 .footer__brand p { font-size: 14px; line-height: 1.7; }
 

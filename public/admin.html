@@ -3,507 +3,542 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Админ-панель — АСДРД</title>
+  <title>Админ-панель — Маранафа</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Переменные ── */
     :root {
-      --bg:        #0f1623;
-      --bg-card:   #1a2235;
-      --bg-input:  #111827;
-      --border:    rgba(255,255,255,0.08);
-      --accent:    #3b82f6;
-      --accent-dk: #2563eb;
-      --green:     #22c55e;
-      --red:       #ef4444;
-      --amber:     #f59e0b;
-      --text:      #f1f5f9;
-      --muted:     #64748b;
-      --font-d:    'Playfair Display', Georgia, serif;
-      --font-b:    'Source Sans 3', sans-serif;
-      --radius:    10px;
-      --tr:        0.2s ease;
+      --bg:       #0f1623;
+      --card:     #1a2235;
+      --input-bg: #111827;
+      --border:   rgba(255,255,255,0.08);
+      --accent:   #3b82f6;
+      --green:    #22c55e;
+      --red:      #ef4444;
+      --amber:    #f59e0b;
+      --text:     #f1f5f9;
+      --muted:    #64748b;
+      --font-d:   'Playfair Display', serif;
+      --font-b:   'Source Sans 3', sans-serif;
+      --radius:   10px;
+      --tr:       0.2s ease;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-b);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
+    body { font-family: var(--font-b); background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
 
-    /* ── LOGIN SCREEN ── */
+    /* ── Login ── */
     .login-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 70%);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 70%);
     }
-
     .login-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 48px 44px;
-      width: 100%;
-      max-width: 400px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 48px 44px; width: 100%; max-width: 400px;
       box-shadow: 0 24px 60px rgba(0,0,0,0.4);
     }
-
-    .login-logo {
-      font-family: var(--font-d);
-      font-size: 22px;
-      color: var(--accent);
-      text-align: center;
-      margin-bottom: 8px;
+    .login-logo { font-family: var(--font-d); font-size: 22px; color: var(--accent); text-align: center; margin-bottom: 8px; }
+    .login-title { font-family: var(--font-d); font-size: 26px; text-align: center; margin-bottom: 6px; }
+    .login-sub { text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+    .fg { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .fg label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .fg input {
+      font-family: var(--font-b); font-size: 15px; padding: 12px 16px;
+      background: var(--input-bg); border: 1.5px solid var(--border); border-radius: var(--radius);
+      color: var(--text); outline: none; transition: border-color var(--tr);
     }
-
-    .login-title {
-      font-family: var(--font-d);
-      font-size: 26px;
-      text-align: center;
-      margin-bottom: 6px;
-    }
-
-    .login-sub {
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 36px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .form-group input {
-      font-family: var(--font-b);
-      font-size: 15px;
-      padding: 12px 16px;
-      background: var(--bg-input);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text);
-      outline: none;
-      transition: border-color var(--tr), box-shadow var(--tr);
-    }
-
-    .form-group input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: var(--radius);
-      font-family: var(--font-b);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all var(--tr);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      width: 100%;
-      padding: 14px;
-      margin-top: 8px;
-    }
-
-    .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); }
+    .fg input:focus { border-color: var(--accent); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 22px; border-radius: var(--radius); font-family: var(--font-b); font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all var(--tr); }
+    .btn-primary { background: var(--accent); color: #fff; width: 100%; padding: 14px; margin-top: 8px; }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .login-err { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); color: #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-top: 14px; display: none; text-align: center; }
 
-    .login-error {
-      background: rgba(239,68,68,0.12);
-      border: 1px solid rgba(239,68,68,0.3);
-      color: #fca5a5;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      margin-top: 14px;
-      display: none;
-      text-align: center;
-    }
-
-    /* ── ADMIN PANEL ── */
+    /* ── Admin panel ── */
     .admin-panel { display: none; min-height: 100vh; }
 
-    /* Header */
     .admin-header {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      padding: 0 32px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      background: var(--card); border-bottom: 1px solid var(--border);
+      padding: 0 28px; height: 64px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 50;
     }
+    .admin-header__left { display: flex; align-items: center; gap: 14px; }
+    .admin-logo { font-family: var(--font-d); font-size: 18px; color: var(--accent); }
+    .admin-badge { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(59,130,246,.15); color: var(--accent); padding: 3px 10px; border-radius: 100px; border: 1px solid rgba(59,130,246,.25); }
+    .btn-logout { background: rgba(239,68,68,.1); color: #fca5a5; border: 1px solid rgba(239,68,68,.2); padding: 8px 16px; font-size: 13px; }
+    .btn-logout:hover { background: rgba(239,68,68,.2); }
 
-    .admin-header__left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .admin-logo {
-      font-family: var(--font-d);
-      font-size: 18px;
-      color: var(--accent);
-    }
-
-    .admin-badge {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: rgba(59,130,246,0.15);
-      color: var(--accent);
-      padding: 3px 10px;
-      border-radius: 100px;
-      border: 1px solid rgba(59,130,246,0.25);
-    }
-
-    .btn-logout {
-      background: rgba(239,68,68,0.1);
-      color: #fca5a5;
-      border: 1px solid rgba(239,68,68,0.2);
-      padding: 8px 18px;
-      font-size: 13px;
-    }
-
-    .btn-logout:hover { background: rgba(239,68,68,0.2); }
-
-    /* Main content */
-    .admin-main { padding: 36px 32px; max-width: 1300px; margin: 0 auto; }
+    .admin-main { padding: 32px 28px; max-width: 1400px; margin: 0 auto; }
 
     /* Stats */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .stat-value {
-      font-family: var(--font-d);
-      font-size: 32px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .stat-value.blue   { color: var(--accent); }
-    .stat-value.green  { color: var(--green); }
-    .stat-value.amber  { color: var(--amber); }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; }
+    .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
+    .stat-value { font-family: var(--font-d); font-size: 30px; font-weight: 700; line-height: 1; }
+    .blue { color: var(--accent); } .green { color: var(--green); } .amber { color: var(--amber); } .red { color: var(--red); }
 
     /* Table section */
-    .table-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
+    .table-section { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .table-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .table-title { font-family: var(--font-d); font-size: 20px; }
+    .table-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* Search + filter */
+    .search-input {
+      font-family: var(--font-b); font-size: 14px; padding: 8px 14px;
+      background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); outline: none; width: 200px; transition: border-color var(--tr);
     }
-
-    .table-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .search-input:focus { border-color: var(--accent); }
+    .filter-select {
+      font-family: var(--font-b); font-size: 13px; padding: 8px 12px;
+      background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); outline: none; cursor: pointer;
     }
+    .btn-refresh { background: rgba(59,130,246,.1); color: var(--accent); border: 1px solid rgba(59,130,246,.2); padding: 8px 16px; font-size: 13px; }
+    .btn-refresh:hover { background: rgba(59,130,246,.2); }
 
-    .table-title {
-      font-family: var(--font-d);
-      font-size: 20px;
-    }
-
-    .btn-refresh {
-      background: rgba(59,130,246,0.1);
-      color: var(--accent);
-      border: 1px solid rgba(59,130,246,0.2);
-      padding: 8px 18px;
-      font-size: 13px;
-    }
-
-    .btn-refresh:hover { background: rgba(59,130,246,0.2); }
-
-    /* Loading / empty */
-    .state-msg {
-      text-align: center;
-      padding: 60px 24px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
+    /* State messages */
+    .state-msg { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 15px; }
     .state-msg span { font-size: 32px; display: block; margin-bottom: 12px; }
 
     /* Table */
     .table-wrap { overflow-x: auto; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    thead tr {
-      background: rgba(255,255,255,0.03);
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      padding: 12px 16px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background var(--tr);
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: rgba(255,255,255,.03); border-bottom: 1px solid var(--border); }
+    th { padding: 11px 14px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background var(--tr); }
     tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody tr:hover { background: rgba(255,255,255,.02); }
+    td { padding: 12px 14px; vertical-align: middle; }
 
-    td {
-      padding: 14px 16px;
-      vertical-align: top;
-      color: var(--text);
-    }
-
-    .td-name { font-weight: 600; }
-    .td-motivation {
-      max-width: 220px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: var(--muted);
-    }
-
-    .td-date { color: var(--muted); white-space: nowrap; font-size: 13px; }
+    .td-name { font-weight: 600; white-space: nowrap; }
+    .td-wrap { max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+    .td-muted { color: var(--muted); font-size: 12px; white-space: nowrap; }
 
     /* Status badge */
-    .status-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; }
+    .badge-new      { background: rgba(59,130,246,.15);  color: #93c5fd; border: 1px solid rgba(59,130,246,.25); }
+    .badge-accepted { background: rgba(34,197,94,.15);   color: #86efac; border: 1px solid rgba(34,197,94,.25); }
+    .badge-rejected { background: rgba(239,68,68,.15);   color: #fca5a5; border: 1px solid rgba(239,68,68,.25); }
+
+    /* Mini badge */
+    .mini-badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,.06); color: var(--muted); }
+
+    /* Actions */
+    .actions { display: flex; gap: 6px; align-items: center; }
+    .btn-act { padding: 5px 10px; font-size: 12px; border-radius: 6px; border: 1px solid transparent; cursor: pointer; font-family: var(--font-b); font-weight: 600; transition: all var(--tr); }
+    .btn-accept { background: rgba(34,197,94,.1);  color: #86efac; border-color: rgba(34,197,94,.2); }
+    .btn-reject { background: rgba(245,158,11,.1); color: #fcd34d; border-color: rgba(245,158,11,.2); }
+    .btn-delete { background: rgba(239,68,68,.1);  color: #fca5a5; border-color: rgba(239,68,68,.2); }
+    .btn-view   { background: rgba(59,130,246,.1); color: #93c5fd; border-color: rgba(59,130,246,.2); }
+    .btn-accept:hover { background: rgba(34,197,94,.2); }
+    .btn-reject:hover { background: rgba(245,158,11,.2); }
+    .btn-delete:hover { background: rgba(239,68,68,.2); }
+    .btn-view:hover   { background: rgba(59,130,246,.2); }
+
+    /* Detail modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
     }
-
-    .status-new      { background: rgba(59,130,246,0.15);  color: #93c5fd; border: 1px solid rgba(59,130,246,0.25); }
-    .status-accepted { background: rgba(34,197,94,0.15);   color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
-    .status-rejected { background: rgba(239,68,68,0.15);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
-
-    /* Action buttons */
-    .actions { display: flex; gap: 8px; align-items: center; }
-
-    .btn-accept {
-      background: rgba(34,197,94,0.1);
-      color: #86efac;
-      border: 1px solid rgba(34,197,94,0.2);
-      padding: 6px 12px;
-      font-size: 12px;
-      border-radius: 7px;
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      width: 100%; max-width: 640px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
-
-    .btn-reject {
-      background: rgba(245,158,11,0.1);
-      color: #fcd34d;
-      border: 1px solid rgba(245,158,11,0.2);
-      padding: 6px 12px;
-      font-size: 12px;
-      border-radius: 7px;
+    .modal-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
     }
+    .modal-title { font-family: var(--font-d); font-size: 20px; }
+    .modal-close { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px; transition: color var(--tr); }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 24px; }
+    .modal-section { margin-bottom: 24px; }
+    .modal-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .modal-row { display: grid; grid-template-columns: 140px 1fr; gap: 8px; margin-bottom: 10px; font-size: 14px; }
+    .modal-row dt { color: var(--muted); font-weight: 600; }
+    .modal-row dd { color: var(--text); word-break: break-word; }
+    .modal-motivation { font-size: 14px; color: var(--text); line-height: 1.7; background: rgba(255,255,255,.03); border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
+    .modal-actions { display: flex; gap: 10px; padding: 16px 24px; border-top: 1px solid var(--border); }
 
-    .btn-delete {
-      background: rgba(239,68,68,0.1);
-      color: #fca5a5;
-      border: 1px solid rgba(239,68,68,0.2);
-      padding: 6px 12px;
-      font-size: 12px;
-      border-radius: 7px;
-    }
-
-    .btn-accept:hover { background: rgba(34,197,94,0.2); }
-    .btn-reject:hover { background: rgba(245,158,11,0.2); }
-    .btn-delete:hover { background: rgba(239,68,68,0.2); }
-
-    /* Toast notification */
-    .toast {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      transform: translateY(80px);
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    /* Toast */
+    .toast { position: fixed; bottom: 28px; right: 28px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 20px; font-size: 14px; font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,.4); transform: translateY(80px); opacity: 0; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); z-index: 300; display: flex; align-items: center; gap: 10px; }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { border-left: 3px solid var(--green); }
     .toast.error   { border-left: 3px solid var(--red); }
 
     @media (max-width: 768px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
       .admin-main { padding: 20px 16px; }
-      .stats { grid-template-columns: 1fr; }
-      .admin-header { padding: 0 16px; }
-      th:nth-child(5), td:nth-child(5) { display: none; } /* скрываем мотивацию */
+      .search-input { width: 140px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── LOGIN SCREEN ── -->
-  <div class="login-screen" id="loginScreen">
-    <div class="login-box">
-      <div class="login-logo">✦ АСДРД</div>
-      <h1 class="login-title">Вход в админку</h1>
-      <p class="login-sub">Управление заявками школы</p>
-
-      <div class="form-group">
-        <label for="loginInput">Логин</label>
-        <input type="text" id="loginInput" placeholder="admin" autocomplete="username" />
-      </div>
-      <div class="form-group">
-        <label for="passwordInput">Пароль</label>
-        <input type="password" id="passwordInput" placeholder="••••" autocomplete="current-password" />
-      </div>
-
-      <button class="btn btn-primary" id="loginBtn" onclick="login()">Войти</button>
-      <div class="login-error" id="loginError">Неверный логин или пароль</div>
-    </div>
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">✦ Маранафа</div>
+    <h1 class="login-title">Вход в админку</h1>
+    <p class="login-sub">Управление заявками колледжа</p>
+    <div class="fg"><label for="loginInput">Логин</label><input type="text" id="loginInput" placeholder="admin" autocomplete="username" /></div>
+    <div class="fg"><label for="passwordInput">Пароль</label><input type="password" id="passwordInput" placeholder="••••" autocomplete="current-password" /></div>
+    <button class="btn btn-primary" id="loginBtn" onclick="login()">Войти</button>
+    <div class="login-err" id="loginError">Неверный логин или пароль</div>
   </div>
+</div>
 
-  <!-- ── ADMIN PANEL ── -->
-  <div class="admin-panel" id="adminPanel">
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <header class="admin-header">
+    <div class="admin-header__left">
+      <div class="admin-logo">✦ Маранафа</div>
+      <span class="admin-badge">Администратор</span>
+    </div>
+    <button class="btn btn-logout" onclick="logout()">Выйти</button>
+  </header>
 
-    <!-- Header -->
-    <header class="admin-header">
-      <div class="admin-header__left">
-        <div class="admin-logo">✦ АСДРД</div>
-        <span class="admin-badge">Администратор</span>
-      </div>
-      <button class="btn btn-logout" onclick="logout()">Выйти</button>
-    </header>
+  <main class="admin-main">
+    <!-- Статистика -->
+    <div class="stats">
+      <div class="stat-card"><div class="stat-label">Всего заявок</div><div class="stat-value blue" id="statTotal">—</div></div>
+      <div class="stat-card"><div class="stat-label">Новых</div><div class="stat-value amber" id="statNew">—</div></div>
+      <div class="stat-card"><div class="stat-label">Принято</div><div class="stat-value green" id="statAccepted">—</div></div>
+      <div class="stat-card"><div class="stat-label">Отклонено</div><div class="stat-value red" id="statRejected">—</div></div>
+    </div>
 
-    <!-- Main -->
-    <main class="admin-main">
-
-      <!-- Статистика -->
-      <div class="stats">
-        <div class="stat-card">
-          <div class="stat-label">Всего заявок</div>
-          <div class="stat-value blue" id="statTotal">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Принято</div>
-          <div class="stat-value green" id="statAccepted">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Новых</div>
-          <div class="stat-value amber" id="statNew">—</div>
-        </div>
-      </div>
-
-      <!-- Таблица заявок -->
-      <div class="table-section">
-        <div class="table-header">
-          <div class="table-title">Заявки</div>
+    <!-- Таблица -->
+    <div class="table-section">
+      <div class="table-header">
+        <div class="table-title">Заявки на поступление</div>
+        <div class="table-actions">
+          <input class="search-input" type="text" id="searchInput" placeholder="Поиск по имени..." oninput="filterTable()" />
+          <select class="filter-select" id="statusFilter" onchange="filterTable()">
+            <option value="">Все статусы</option>
+            <option value="new">Новые</option>
+            <option value="accepted">Принятые</option>
+            <option value="rejected">Отклонённые</option>
+          </select>
           <button class="btn btn-refresh" onclick="loadApplications()">↻ Обновить</button>
         </div>
-
-        <!-- Состояния -->
-        <div class="state-msg" id="stateLoading">
-          <span>⏳</span>Загружаем заявки...
-        </div>
-        <div class="state-msg" id="stateEmpty" style="display:none">
-          <span>📭</span>Заявок пока нет
-        </div>
-
-        <!-- Таблица -->
-        <div class="table-wrap" id="tableWrap" style="display:none">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Имя</th>
-                <th>Возраст</th>
-                <th>Город</th>
-                <th>Email</th>
-                <th>Мотивация</th>
-                <th>Дата</th>
-                <th>Статус</th>
-                <th>Действия</th>
-              </tr>
-            </thead>
-            <tbody id="applicationsBody"></tbody>
-          </table>
-        </div>
       </div>
 
-    </main>
+      <div class="state-msg" id="stateLoading"><span>⏳</span>Загружаем заявки...</div>
+      <div class="state-msg" id="stateEmpty" style="display:none"><span>📭</span>Заявок пока нет</div>
+
+      <div class="table-wrap" id="tableWrap" style="display:none">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ФИО</th>
+              <th>Дата рожд.</th>
+              <th>Страна / Город</th>
+              <th>Email</th>
+              <th>Телефон</th>
+              <th>Член АСДРД</th>
+              <th>Служение</th>
+              <th>Дата заявки</th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="applicationsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Заявка</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
   </div>
+</div>
 
-  <!-- Toast уведомление -->
-  <div class="toast" id="toast"></div>
+<div class="toast" id="toast"></div>
 
-  <script src="admin.js"></script>
+<script>
+const TOKEN_KEY = 'asdrd_admin_token';
+let allApplications = [];
+
+// ── Init ──────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token) {
+    try {
+      const res  = await fetch('/api/me', { credentials: 'include' });
+      const data = await res.json();
+      if (data.isAdmin || token) showAdminPanel();
+    } catch { /* show login */ }
+  }
+});
+
+document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+document.getElementById('loginInput').addEventListener('keydown',   e => { if (e.key === 'Enter') login(); });
+
+// ── Auth ──────────────────────────────────────────────────
+async function login() {
+  const login    = document.getElementById('loginInput').value.trim();
+  const password = document.getElementById('passwordInput').value;
+  if (!login || !password) { showLoginErr('Введите логин и пароль'); return; }
+
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true; btn.textContent = 'Входим...';
+  document.getElementById('loginError').style.display = 'none';
+
+  try {
+    const res  = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ login, password }) });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      localStorage.setItem(TOKEN_KEY, data.token);
+      showAdminPanel();
+    } else {
+      showLoginErr(data.message || 'Неверный логин или пароль');
+    }
+  } catch { showLoginErr('Ошибка подключения к серверу'); }
+  finally { btn.disabled = false; btn.textContent = 'Войти'; }
+}
+
+function logout() {
+  localStorage.removeItem(TOKEN_KEY);
+  document.getElementById('adminPanel').style.display   = 'none';
+  document.getElementById('loginScreen').style.display  = 'flex';
+  document.getElementById('loginInput').value = '';
+  document.getElementById('passwordInput').value = '';
+}
+
+function showAdminPanel() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display  = 'block';
+  loadApplications();
+}
+
+function showLoginErr(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+function authHeaders() {
+  return { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN_KEY) };
+}
+
+// ── Load applications ─────────────────────────────────────
+async function loadApplications() {
+  setTableState('loading');
+  try {
+    const res  = await fetch('/api/applications', { headers: authHeaders() });
+    if (res.status === 401) { logout(); return; }
+    const data = await res.json();
+    allApplications = data.data || [];
+    renderTable(allApplications);
+    updateStats(allApplications);
+  } catch { showToast('Ошибка загрузки', 'error'); setTableState('empty'); }
+}
+
+function setTableState(state) {
+  document.getElementById('stateLoading').style.display = state === 'loading' ? 'block' : 'none';
+  document.getElementById('stateEmpty').style.display   = state === 'empty'   ? 'block' : 'none';
+  document.getElementById('tableWrap').style.display    = state === 'table'   ? 'block' : 'none';
+}
+
+// ── Render ────────────────────────────────────────────────
+function renderTable(apps) {
+  const tbody = document.getElementById('applicationsBody');
+  tbody.innerHTML = '';
+
+  if (!apps.length) { setTableState('empty'); return; }
+  setTableState('table');
+
+  const statusMap = {
+    new:      { label: 'Новая',     cls: 'badge-new' },
+    accepted: { label: 'Принята',   cls: 'badge-accepted' },
+    rejected: { label: 'Отклонена', cls: 'badge-rejected' },
+  };
+
+  const maritalMap = { married: 'Женат/замужем', single: 'Не женат/не замужем' };
+  const churchMap  = { yes: 'Да', no: 'Нет', other: 'Другое' };
+
+  apps.forEach((app, i) => {
+    const tr = document.createElement('tr');
+    tr.id = `row-${app.id}`;
+    const s = statusMap[app.status] || statusMap['new'];
+    const date     = app.created_at ? new Date(app.created_at).toLocaleDateString('ru-RU') : '—';
+    const birthdate = app.birthdate  ? new Date(app.birthdate).toLocaleDateString('ru-RU')  : '—';
+    const ministry = app.ministry || '—';
+
+    tr.innerHTML = `
+      <td class="td-muted">${i + 1}</td>
+      <td class="td-name">${esc(app.name)}</td>
+      <td class="td-muted">${birthdate}</td>
+      <td class="td-wrap" title="${esc(app.city)}">${esc(app.city)}</td>
+      <td class="td-wrap" title="${esc(app.email)}">${esc(app.email)}</td>
+      <td class="td-muted">${esc(app.phone)}</td>
+      <td><span class="mini-badge">${churchMap[app.church_member] || app.church_member || '—'}</span></td>
+      <td class="td-wrap" title="${esc(ministry)}">${esc(ministry)}</td>
+      <td class="td-muted">${date}</td>
+      <td><span class="badge ${s.cls}" id="status-${app.id}">${s.label}</span></td>
+      <td>
+        <div class="actions">
+          <button class="btn-act btn-view"   onclick="openModal(${app.id})">Подробнее</button>
+          <button class="btn-act btn-accept" onclick="changeStatus(${app.id},'accepted')">✓</button>
+          <button class="btn-act btn-reject" onclick="changeStatus(${app.id},'rejected')">✗</button>
+          <button class="btn-act btn-delete" onclick="deleteApp(${app.id})">🗑</button>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ── Filter / Search ───────────────────────────────────────
+function filterTable() {
+  const q      = document.getElementById('searchInput').value.toLowerCase();
+  const status = document.getElementById('statusFilter').value;
+  const filtered = allApplications.filter(a => {
+    const matchQ = !q || a.name.toLowerCase().includes(q) || (a.email || '').toLowerCase().includes(q) || (a.city || '').toLowerCase().includes(q);
+    const matchS = !status || a.status === status;
+    return matchQ && matchS;
+  });
+  renderTable(filtered);
+}
+
+// ── Stats ─────────────────────────────────────────────────
+function updateStats(apps) {
+  document.getElementById('statTotal').textContent    = apps.length;
+  document.getElementById('statNew').textContent      = apps.filter(a => a.status === 'new').length;
+  document.getElementById('statAccepted').textContent = apps.filter(a => a.status === 'accepted').length;
+  document.getElementById('statRejected').textContent = apps.filter(a => a.status === 'rejected').length;
+}
+
+// ── Detail Modal ──────────────────────────────────────────
+function openModal(id) {
+  const app = allApplications.find(a => a.id === id);
+  if (!app) return;
+
+  const maritalMap  = { married: 'Женат / замужем', single: 'Не женат / не замужем' };
+  const churchMap   = { yes: 'Да', no: 'Нет', other: 'Другое' };
+  const schoolMap   = { yes: 'Да', no: 'Нет', incomplete: 'Поступил(а), не окончил(а)' };
+  const healthMap   = { yes: 'Да', no: 'Нет', other: 'Другое' };
+  const birthdate   = app.birthdate ? new Date(app.birthdate).toLocaleDateString('ru-RU') : '—';
+  const created     = app.created_at ? new Date(app.created_at).toLocaleString('ru-RU') : '—';
+
+  document.getElementById('modalTitle').textContent = `Заявка #${app.id} — ${app.name}`;
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">Личные данные</div>
+      <dl>
+        <div class="modal-row"><dt>ФИО</dt><dd>${esc(app.name)}</dd></div>
+        <div class="modal-row"><dt>Дата рождения</dt><dd>${birthdate}</dd></div>
+        <div class="modal-row"><dt>Страна / город</dt><dd>${esc(app.city)}</dd></div>
+        <div class="modal-row"><dt>Языки</dt><dd>${esc(app.languages || '—')}</dd></div>
+        <div class="modal-row"><dt>Семейное положение</dt><dd>${maritalMap[app.marital] || app.marital || '—'}</dd></div>
+      </dl>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Контакты</div>
+      <dl>
+        <div class="modal-row"><dt>Email</dt><dd><a href="mailto:${esc(app.email)}" style="color:var(--accent)">${esc(app.email)}</a></dd></div>
+        <div class="modal-row"><dt>Телефон</dt><dd>${esc(app.phone)}</dd></div>
+      </dl>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Вера и служение</div>
+      <dl>
+        <div class="modal-row"><dt>Член АСДРД</dt><dd>${churchMap[app.church_member] || '—'}${app.church_member_other ? ` (${esc(app.church_member_other)})` : ''}</dd></div>
+        <div class="modal-row"><dt>Другие школы</dt><dd>${schoolMap[app.prev_school] || app.prev_school || '—'}</dd></div>
+        <div class="modal-row"><dt>Служение</dt><dd>${esc(app.ministry || '—')}${app.ministry_other ? `, ${esc(app.ministry_other)}` : ''}</dd></div>
+      </dl>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Дополнительно</div>
+      <dl>
+        <div class="modal-row"><dt>Здоровье</dt><dd>${healthMap[app.health] || '—'}${app.health_other ? ` (${esc(app.health_other)})` : ''}</dd></div>
+      </dl>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Мотивация</div>
+      <div class="modal-motivation">${esc(app.motivation)}</div>
+    </div>
+    <div class="modal-section" style="margin-bottom:0">
+      <div class="modal-section-title">Служебная информация</div>
+      <dl>
+        <div class="modal-row"><dt>Дата подачи</dt><dd>${created}</dd></div>
+        <div class="modal-row"><dt>Статус</dt><dd id="modal-status-text">${app.status}</dd></div>
+      </dl>
+    </div>`;
+
+  document.getElementById('modalActions').innerHTML = `
+    <button class="btn-act btn-accept" onclick="changeStatus(${app.id},'accepted');closeModal()">✓ Принять</button>
+    <button class="btn-act btn-reject" onclick="changeStatus(${app.id},'rejected');closeModal()">✗ Отклонить</button>
+    <button class="btn-act btn-delete" onclick="deleteApp(${app.id});closeModal()">🗑 Удалить</button>`;
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+// ── Actions ───────────────────────────────────────────────
+async function deleteApp(id) {
+  if (!confirm('Удалить эту заявку? Действие необратимо.')) return;
+  try {
+    const res = await fetch(`/api/applications/${id}`, { method: 'DELETE', headers: authHeaders() });
+    if (res.status === 401) { logout(); return; }
+    const data = await res.json();
+    if (res.ok && data.success) {
+      const row = document.getElementById(`row-${id}`);
+      if (row) { row.style.opacity = '0'; row.style.transition = 'opacity 0.3s'; setTimeout(() => row.remove(), 300); }
+      allApplications = allApplications.filter(a => a.id !== id);
+      updateStats(allApplications);
+      showToast('Заявка удалена', 'success');
+    } else showToast(data.message || 'Ошибка', 'error');
+  } catch { showToast('Ошибка сети', 'error'); }
+}
+
+async function changeStatus(id, status) {
+  try {
+    const res = await fetch(`/api/applications/${id}`, { method: 'PUT', headers: authHeaders(), body: JSON.stringify({ status }) });
+    if (res.status === 401) { logout(); return; }
+    const data = await res.json();
+    if (res.ok && data.success) {
+      const app = allApplications.find(a => a.id === id);
+      if (app) app.status = status;
+      const badge = document.getElementById(`status-${id}`);
+      const map = { new: { label: 'Новая', cls: 'badge-new' }, accepted: { label: 'Принята', cls: 'badge-accepted' }, rejected: { label: 'Отклонена', cls: 'badge-rejected' } };
+      if (badge) { badge.textContent = map[status].label; badge.className = `badge ${map[status].cls}`; }
+      updateStats(allApplications);
+      showToast(`Статус обновлён: ${map[status].label}`, 'success');
+    } else showToast(data.message || 'Ошибка', 'error');
+  } catch { showToast('Ошибка сети', 'error'); }
+}
+
+// ── Helpers ───────────────────────────────────────────────
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let toastTimer = null;
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = (type === 'success' ? '✓ ' : '✗ ') + msg;
+  t.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
 </body>
 </html>

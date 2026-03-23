@@ -26,7 +26,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// ── Показ поля "Другое" под радио ───────────────────────
+// ── Показ поля "Другое" + код страны телефона ────────────
 function initOtherFields() {
   // church_member → other input
   document.querySelectorAll('input[name="church_member"]').forEach(r => {
@@ -42,6 +42,19 @@ function initOtherFields() {
       if (el) el.classList.toggle('visible', r.value === 'other' && r.checked);
     });
   });
+  // phone code → show custom field if "other"
+  const phoneCode   = document.getElementById('phone_code');
+  const phoneNumber = document.querySelector('.phone-input__number');
+  const phoneCustom = document.querySelector('.phone-input__custom');
+  if (phoneCode) {
+    phoneCode.addEventListener('change', () => {
+      const isOther = phoneCode.value === 'other';
+      if (phoneCustom) phoneCustom.classList.toggle('visible', isOther);
+      if (phoneNumber) phoneNumber.style.display = isOther ? 'none' : '';
+      if (phoneNumber) phoneNumber.required = !isOther;
+      if (phoneCustom) phoneCustom.required = isOther;
+    });
+  }
 }
 initOtherFields();
 
@@ -173,12 +186,20 @@ if (form) {
       return [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(c => c.value);
     };
 
+    // Собираем полный номер телефона
+    const phoneCode   = form.phone_code?.value || '+373';
+    const phoneNum    = form.phone?.value.trim() || '';
+    const phoneCustom = form.phone_custom?.value.trim() || '';
+    const fullPhone   = phoneCode === 'other'
+      ? phoneCustom
+      : `${phoneCode} ${phoneNum}`.trim();
+
     const formData = {
       name:               form.name.value.trim(),
       birthdate:          form.birthdate.value,
       city:               form.city.value.trim(),
       email:              form.email.value.trim(),
-      phone:              form.phone.value.trim(),
+      phone:              fullPhone,
       marital:            getRadioVal('marital'),
       languages:          form.languages.value.trim(),
       church_member:      getRadioVal('church_member'),
@@ -189,7 +210,6 @@ if (form) {
       health:             getRadioVal('health'),
       health_other:       form.health_other?.value.trim() || '',
       motivation:         form.motivation.value.trim(),
-      // age не нужен отдельно — вычисляем из даты
       age: form.birthdate.value
         ? new Date().getFullYear() - new Date(form.birthdate.value).getFullYear()
         : 0,

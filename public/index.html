@@ -310,8 +310,21 @@
                   <label for="phone">Телефон <span class="form__req">*</span>
                     <span class="form__hint">WhatsApp / Telegram / Viber</span>
                   </label>
-                  <input class="form__input" type="tel" id="phone" name="phone"
-                    placeholder="+373 XX XXX XXX" required />
+                  <div class="phone-input">
+                    <select class="phone-input__code" id="phone_code" name="phone_code">
+                      <option value="+373">🇲🇩 +373</option>
+                      <option value="+380">🇺🇦 +380</option>
+                      <option value="+40">🇷🇴 +40</option>
+                      <option value="+420">🇨🇿 +420</option>
+                      <option value="+7">🇷🇺 +7</option>
+                      <option value="other">🌍 Другой</option>
+                    </select>
+                    <input class="form__input phone-input__number" type="tel" id="phone"
+                      name="phone" placeholder="XX XXX XXX" required />
+                  </div>
+                  <input class="form__input phone-input__custom" type="tel"
+                    id="phone_custom" name="phone_custom"
+                    placeholder="Введите номер с кодом страны, например +44 20 1234 5678" />
                   <div class="form__err" id="err-phone">Укажите номер телефона</div>
                 </div>
               </div>
@@ -556,10 +569,7 @@
       </div>
       <div class="footer__contact">
         <div class="footer__contact-title">Контакты</div>
-        <a href="mailto:maranathacollage@gmail.com">maranathacollage@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#cda0acbfaca3acb9a5acaea2a1a1acaaa88daaa0aca4a1e3aea2a0"><span class="__cf_email__" data-cfemail="e4898596858a85908c85878b8888858381a48389858d88ca878b89">[email&#160;protected]</span></a>
         <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank">Анкета поступления</a>
       </div>
-      <div class="footer__nav">
-        <a href="#about">О колледже</a>
-        <a href="#program">Программа</a>
-        <a href="#sess
+    

@@ -711,8 +711,9 @@ strong { font-weight: 600; color: var(--accent); }
 
 .form__radio {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   font-size: 15px;
   color: var(--text);
@@ -727,14 +728,15 @@ strong { font-weight: 600; color: var(--accent); }
 
 /* Кастомный круг */
 .form__radio-custom {
-  display: flex;
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
   border-radius: 50%;
   border: 2px solid #b0bac4;
   background: #fff;
   flex-shrink: 0;
+  align-self: center;
   position: relative;
   transition: border-color var(--tr);
 }
@@ -771,8 +773,9 @@ strong { font-weight: 600; color: var(--accent); }
 
 .form__check {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   font-size: 15px;
   color: var(--text);
@@ -784,14 +787,15 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 .form__check-custom {
-  display: flex;
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
   border-radius: 4px;
   border: 2px solid #b0bac4;
   background: #fff;
   flex-shrink: 0;
+  align-self: center;
   position: relative;
   transition: all var(--tr);
 }
@@ -892,7 +896,8 @@ strong { font-weight: 600; color: var(--accent); }
 .form__radio-group--row {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px 20px;
+  gap: 8px 24px;
+  align-items: center;
 }
 
 /* ── Поле "Другое" под радио ── */

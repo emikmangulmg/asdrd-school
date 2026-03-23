@@ -27,7 +27,10 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+}
 
 body {
   font-family: var(--font-b);
@@ -279,15 +282,16 @@ strong { font-weight: 600; color: var(--accent); }
 .hero__brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 28px;
 }
 
 .hero__logo {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  flex-shrink: 0;
 }
 
 .hero__content {
@@ -299,7 +303,8 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 .hero__tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -307,9 +312,9 @@ strong { font-weight: 600; color: var(--accent); }
   color: var(--gold-light);
   background: rgba(201,148,42,0.12);
   border: 1px solid rgba(201,148,42,0.3);
-  padding: 6px 14px;
+  padding: 0 18px;
   border-radius: 100px;
-  margin-bottom: 28px;
+  height: 56px;
 }
 
 .hero__title {
@@ -669,13 +674,34 @@ strong { font-weight: 600; color: var(--accent); }
   transition: border-color var(--tr), box-shadow var(--tr);
 }
 
+/* Красивый date picker */
+input[type="date"].form__input {
+  cursor: pointer;
+  color-scheme: light;
+}
+
+input[type="date"].form__input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  filter: invert(30%) sepia(80%) saturate(400%) hue-rotate(190deg);
+  transition: opacity var(--tr);
+}
+
+input[type="date"].form__input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 .form__input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(29,92,143,0.1);
 }
 
 .form__input::placeholder { color: var(--text-light); }
-.form__input.has-error { border-color: #c0392b; }
+.form__input.has-error {
+  border-color: #c0392b;
+  background: rgba(192,57,43,0.03);
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+}
 
 .form__textarea {
   resize: vertical;
@@ -696,11 +722,34 @@ strong { font-weight: 600; color: var(--accent); }
 /* Ошибка */
 .form__err {
   display: none;
-  margin-top: 6px;
-  font-size: 12px;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  font-size: 13px;
+  font-weight: 500;
   color: #c0392b;
+  padding: 6px 10px;
+  background: rgba(192, 57, 43, 0.07);
+  border-radius: 5px;
+  border-left: 2px solid #c0392b;
 }
-.form__err.visible { display: block; }
+.form__err.visible {
+  display: flex;
+}
+.form__err::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background: #c0392b;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
 
 /* ── Радио-кнопки ── */
 .form__radio-group {
@@ -1108,6 +1157,36 @@ strong { font-weight: 600; color: var(--accent); }
 }
 
 .phone-input__custom.visible { display: block; }
+
+
+/* ── Кастомный выбор даты ── */
+.date-picker {
+  display: grid;
+  grid-template-columns: 80px 1fr 90px;
+  gap: 8px;
+}
+
+.date-picker select.form__input {
+  padding: 11px 10px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: #fff;
+  padding-right: 28px;
+}
+
+.date-picker select.form__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(29,92,143,0.1);
+}
+
+@media (max-width: 400px) {
+  .date-picker { grid-template-columns: 1fr 1fr; }
+  .date-picker__year { grid-column: 1 / -1; }
+}
 
 /* ===========================
    LOCATION & CONTACTS

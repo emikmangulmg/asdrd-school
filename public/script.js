@@ -26,6 +26,44 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// ── Инициализация кастомного date picker ─────────────────
+(function initDatePicker() {
+  const dayEl   = document.getElementById('birthdate_day');
+  const yearEl  = document.getElementById('birthdate_year');
+  const hidden  = document.getElementById('birthdate');
+
+  if (!dayEl || !yearEl) return;
+
+  // Заполняем дни (1–31)
+  for (let d = 1; d <= 31; d++) {
+    const opt = document.createElement('option');
+    opt.value = String(d).padStart(2, '0');
+    opt.textContent = d;
+    dayEl.appendChild(opt);
+  }
+
+  // Заполняем годы (текущий − 80 до текущий − 15)
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear - 15; y >= currentYear - 80; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    yearEl.appendChild(opt);
+  }
+
+  // Собираем дату в hidden input при изменении
+  function updateHidden() {
+    const d = document.getElementById('birthdate_day').value;
+    const m = document.getElementById('birthdate_month').value;
+    const y = document.getElementById('birthdate_year').value;
+    hidden.value = (d && m && y) ? `${y}-${m}-${d}` : '';
+  }
+
+  dayEl.addEventListener('change', updateHidden);
+  document.getElementById('birthdate_month')?.addEventListener('change', updateHidden);
+  yearEl.addEventListener('change', updateHidden);
+})();
+
 // ── Защита email от Cloudflare ───────────────────────────
 (function() {
   const el = document.getElementById('footer-email');
@@ -87,8 +125,28 @@ function initOtherFields() {
 }
 initOtherFields();
 
-// ── Плавный скролл с offset ───────────────────────────────
+// ── Плавный скролл с easing ──────────────────────────────
 const HEADER_HEIGHT = 68;
+
+// Кастомный easeInOutCubic для более плавного скролла
+function smoothScrollTo(targetY, duration = 700) {
+  const startY    = window.pageYOffset;
+  const distance  = targetY - startY;
+  const startTime = performance.now();
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function step(currentTime) {
+    const elapsed  = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', (e) => {
@@ -98,7 +156,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     if (!target) return;
     e.preventDefault();
     const top = target.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT;
-    window.scrollTo({ top, behavior: 'smooth' });
+    smoothScrollTo(top, 800);
   });
 });
 
@@ -107,10 +165,29 @@ const form          = document.getElementById('applicationForm');
 const successBanner = document.getElementById('successBanner');
 const closeBanner   = document.getElementById('closeBanner');
 
+// Тексты ошибок для каждого поля
+const errorMessages = {
+  name:       'Введите ваше полное имя',
+  birthdate:  'Укажите дату рождения',
+  city:       'Укажите страну и город проживания',
+  languages:  'Укажите языки, на которых вы общаетесь',
+  email:      'Введите корректный email адрес',
+  phone:      'Укажите номер телефона для связи',
+  motivation: 'Расскажите подробнее о своём призвании (минимум 10 символов)',
+  marital:    'Выберите ваше семейное положение',
+  church_member: 'Укажите, являетесь ли вы членом церкви АСДРД',
+  prev_school:   'Ответьте на вопрос о других миссионерских школах',
+  ministry:      'Выберите хотя бы одну сферу служения',
+  health:        'Ответьте на вопрос об ограничениях по здоровью',
+};
+
 // Показать/скрыть ошибку поля
-function setError(fieldId, show) {
+function setError(fieldId, show, customMsg) {
   const errEl = document.getElementById('err-' + fieldId);
   if (!errEl) return;
+  if (show && (customMsg || errorMessages[fieldId])) {
+    errEl.textContent = customMsg || errorMessages[fieldId];
+  }
   errEl.classList.toggle('visible', show);
 }
 

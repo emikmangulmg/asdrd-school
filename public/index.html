@@ -254,8 +254,31 @@
                 </div>
 
                 <div class="form__field">
-                  <label for="birthdate">Дата рождения <span class="form__req">*</span></label>
-                  <input class="form__input" type="date" id="birthdate" name="birthdate" required />
+                  <label>Дата рождения <span class="form__req">*</span></label>
+                  <div class="date-picker">
+                    <select class="form__input date-picker__day" id="birthdate_day" name="birthdate_day">
+                      <option value="">День</option>
+                    </select>
+                    <select class="form__input date-picker__month" id="birthdate_month" name="birthdate_month">
+                      <option value="">Месяц</option>
+                      <option value="01">Январь</option>
+                      <option value="02">Февраль</option>
+                      <option value="03">Март</option>
+                      <option value="04">Апрель</option>
+                      <option value="05">Май</option>
+                      <option value="06">Июнь</option>
+                      <option value="07">Июль</option>
+                      <option value="08">Август</option>
+                      <option value="09">Сентябрь</option>
+                      <option value="10">Октябрь</option>
+                      <option value="11">Ноябрь</option>
+                      <option value="12">Декабрь</option>
+                    </select>
+                    <select class="form__input date-picker__year" id="birthdate_year" name="birthdate_year">
+                      <option value="">Год</option>
+                    </select>
+                    <input type="hidden" id="birthdate" name="birthdate" />
+                  </div>
                   <div class="form__err" id="err-birthdate">Укажите дату рождения</div>
                 </div>
               </div>
@@ -507,7 +530,7 @@
               <div class="location__info-icon">✉️</div>
               <div>
                 <strong>Email</strong>
-                <a id="footer-email" href="#">maranathacollage@gmail.com</a>
+                <a id="footer-email" href="#"><span class="__cf_email__" data-cfemail="234e4251424d42574b42404c4f4f42444663444e424a4f0d404c4e">[email&#160;protected]</span></a>
               </div>
             </div>
             <div class="location__info-item">
@@ -569,7 +592,7 @@
       </div>
       <div class="footer__contact">
         <div class="footer__contact-title">Контакты</div>
-        <a href="mailto:maranathacollage@gmail.com">maranathacollage@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#5e333f2c3f303f2a363f3d3132323f393b1e39333f3732703d3133"><span class="__cf_email__" data-cfemail="87eae6f5e6e9e6f3efe6e4e8ebebe6e0e2c7e0eae6eeeba9e4e8ea">[email&#160;protected]</span></a>
         <a href="https://forms.gle/w2RJ42kDLgYhME1a9" target="_blank">Анкета поступления</a>
       </div>
           <div class="footer__nav">
@@ -589,11 +612,4 @@
   <div class="success-banner" id="successBanner">
     <div class="success-banner__inner">
       <span class="success-banner__icon">✓</span>
-      <p>Заявка отправлена! Мы свяжемся с вами в ближайшее время.</p>
-      <button class="success-banner__close" id="closeBanner">✕</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <p>За

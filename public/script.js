@@ -42,10 +42,20 @@ function initOtherFields() {
       if (el) el.classList.toggle('visible', r.value === 'other' && r.checked);
     });
   });
-  // phone code → show custom field if "other"
+  // phone code → placeholder + custom field
   const phoneCode   = document.getElementById('phone_code');
   const phoneNumber = document.querySelector('.phone-input__number');
   const phoneCustom = document.querySelector('.phone-input__custom');
+
+  const phonePlaceholders = {
+    '+373': '69 123 456',    // Молдова
+    '+380': '67 123 45 67',  // Украина
+    '+40':  '712 345 678',   // Румыния
+    '+420': '601 123 456',   // Чехия
+    '+7':   '912 345-67-89', // Россия
+    'other': '',
+  };
+
   if (phoneCode) {
     phoneCode.addEventListener('change', () => {
       const isOther = phoneCode.value === 'other';
@@ -53,7 +63,15 @@ function initOtherFields() {
       if (phoneNumber) phoneNumber.style.display = isOther ? 'none' : '';
       if (phoneNumber) phoneNumber.required = !isOther;
       if (phoneCustom) phoneCustom.required = isOther;
+      // Обновляем placeholder
+      if (phoneNumber) {
+        phoneNumber.placeholder = phonePlaceholders[phoneCode.value] || 'XX XXX XXX';
+      }
     });
+    // Установить placeholder при загрузке
+    if (phoneNumber) {
+      phoneNumber.placeholder = phonePlaceholders[phoneCode.value] || 'XX XXX XXX';
+    }
   }
 }
 initOtherFields();

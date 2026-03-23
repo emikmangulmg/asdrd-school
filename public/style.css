@@ -851,6 +851,80 @@ strong { font-weight: 600; color: var(--accent); }
   color: var(--text-muted);
 }
 
+/* ── Секции формы ── */
+.form__section {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.form__section:last-of-type { border-bottom: none; margin-bottom: 0; }
+
+.form__section-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  padding: 8px 14px;
+  background: var(--accent-light);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+
+/* ── Двухколоночная строка полей ── */
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* ── Подсказка под label ── */
+.form__hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+/* ── Горизонтальные радио ── */
+.form__radio-group--row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+/* ── Поле "Другое" под радио ── */
+.form__input--other {
+  margin-top: 10px;
+  display: none;
+}
+.form__input--other.visible { display: block; }
+
+/* ── Чекбоксы в сетке ── */
+.form__check-group--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.form__check--other-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+/* ── Адаптив формы ── */
+@media (max-width: 600px) {
+  .form__row { grid-template-columns: 1fr; gap: 0; }
+  .form__check-group--grid { grid-template-columns: 1fr; }
+  .form__radio-group--row { flex-direction: column; gap: 8px; }
+}
+
 /* Outline button */
 .btn--outline {
   background: transparent;
@@ -1023,35 +1097,7 @@ strong { font-weight: 600; color: var(--accent); }
 .location__photo:hover img { transform: scale(1.03); }
 
 /* Placeholder если нет фото */
-.location__photo-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: linear-gradient(135deg, var(--accent-light) 0%, #dde8f4 100%);
-  color: var(--accent);
-  text-align: center;
-  padding: 24px;
-  min-height: 220px;
-}
-
-.location__photo-icon { font-size: 48px; margin-bottom: 4px; }
-
-.location__photo-placeholder p {
-  font-family: var(--font-d);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1.3;
-}
-
-.location__photo-placeholder span {
-  font-size: 13px;
-  color: var(--text-muted);
-}
+/* placeholder removed — real photo in use */
 
 /* Контакты */
 .location__info {

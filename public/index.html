@@ -241,177 +241,202 @@
 
           <form class="form" id="applicationForm" novalidate>
 
-            <!-- ФИО -->
-            <div class="form__field">
-              <label for="name">ФИО <span class="form__req">*</span></label>
-              <input class="form__input" type="text" id="name" name="name" placeholder="Введите полное имя" required />
-              <div class="form__err" id="err-name">Пожалуйста, заполните это поле</div>
-            </div>
+            <!-- СЕКЦИЯ 1: Личные данные -->
+            <div class="form__section">
+              <div class="form__section-title">📋 Личные данные</div>
 
-            <!-- Дата рождения -->
-            <div class="form__field">
-              <label for="birthdate">Дата рождения <span class="form__req">*</span></label>
-              <input class="form__input" type="date" id="birthdate" name="birthdate" required />
-              <div class="form__err" id="err-birthdate">Укажите дату рождения</div>
-            </div>
+              <div class="form__row">
+                <div class="form__field">
+                  <label for="name">ФИО <span class="form__req">*</span></label>
+                  <input class="form__input" type="text" id="name" name="name"
+                    placeholder="Иванов Иван Иванович" required />
+                  <div class="form__err" id="err-name">Пожалуйста, заполните это поле</div>
+                </div>
 
-            <!-- Место проживания -->
-            <div class="form__field">
-              <label for="city">Место проживания (страна, город) <span class="form__req">*</span></label>
-              <input class="form__input" type="text" id="city" name="city" placeholder="например: Молдова, Кишинёв" required />
-              <div class="form__err" id="err-city">Укажите страну и город</div>
-            </div>
-
-            <!-- Email -->
-            <div class="form__field">
-              <label for="email">Email <span class="form__req">*</span></label>
-              <input class="form__input" type="email" id="email" name="email" placeholder="example@gmail.com" required />
-              <div class="form__err" id="err-email">Введите корректный адрес</div>
-            </div>
-
-            <!-- Телефон -->
-            <div class="form__field">
-              <label for="phone">Телефон (WhatsApp / Telegram / Viber) <span class="form__req">*</span></label>
-              <input class="form__input" type="tel" id="phone" name="phone" placeholder="+373 XX XXX XXX" required />
-              <div class="form__err" id="err-phone">Укажите номер телефона</div>
-            </div>
-
-            <!-- Семейное положение -->
-            <div class="form__field">
-              <label>Семейное положение <span class="form__req">*</span></label>
-              <div class="form__radio-group">
-                <label class="form__radio">
-                  <input type="radio" name="marital" value="married" required />
-                  <span class="form__radio-custom"></span>
-                  Женат / замужем
-                </label>
-                <label class="form__radio">
-                  <input type="radio" name="marital" value="single" />
-                  <span class="form__radio-custom"></span>
-                  Не женат / не замужем
-                </label>
+                <div class="form__field">
+                  <label for="birthdate">Дата рождения <span class="form__req">*</span></label>
+                  <input class="form__input" type="date" id="birthdate" name="birthdate" required />
+                  <div class="form__err" id="err-birthdate">Укажите дату рождения</div>
+                </div>
               </div>
-              <div class="form__err" id="err-marital">Выберите один из вариантов</div>
+
+              <div class="form__row">
+                <div class="form__field">
+                  <label for="city">Страна и город <span class="form__req">*</span></label>
+                  <input class="form__input" type="text" id="city" name="city"
+                    placeholder="Молдова, Кишинёв" required />
+                  <div class="form__err" id="err-city">Укажите страну и город</div>
+                </div>
+
+                <div class="form__field">
+                  <label for="languages">Языки общения <span class="form__req">*</span></label>
+                  <input class="form__input" type="text" id="languages" name="languages"
+                    placeholder="русский, румынский..." required />
+                  <div class="form__err" id="err-languages">Укажите языки</div>
+                </div>
+              </div>
+
+              <div class="form__field">
+                <label>Семейное положение <span class="form__req">*</span></label>
+                <div class="form__radio-group form__radio-group--row">
+                  <label class="form__radio">
+                    <input type="radio" name="marital" value="married" required />
+                    <span class="form__radio-custom"></span>
+                    Женат / замужем
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="marital" value="single" />
+                    <span class="form__radio-custom"></span>
+                    Не женат / не замужем
+                  </label>
+                </div>
+                <div class="form__err" id="err-marital">Выберите вариант</div>
+              </div>
             </div>
 
-            <!-- Языки -->
-            <div class="form__field">
-              <label for="languages">Язык(и), на которых вы разговариваете <span class="form__req">*</span></label>
-              <input class="form__input" type="text" id="languages" name="languages" placeholder="например: русский, румынский, английский" required />
-              <div class="form__err" id="err-languages">Укажите языки</div>
+            <!-- СЕКЦИЯ 2: Контакты -->
+            <div class="form__section">
+              <div class="form__section-title">📞 Контакты</div>
+
+              <div class="form__row">
+                <div class="form__field">
+                  <label for="email">Email <span class="form__req">*</span></label>
+                  <input class="form__input" type="email" id="email" name="email"
+                    placeholder="example@gmail.com" required />
+                  <div class="form__err" id="err-email">Введите корректный email</div>
+                </div>
+
+                <div class="form__field">
+                  <label for="phone">Телефон <span class="form__req">*</span>
+                    <span class="form__hint">WhatsApp / Telegram / Viber</span>
+                  </label>
+                  <input class="form__input" type="tel" id="phone" name="phone"
+                    placeholder="+373 XX XXX XXX" required />
+                  <div class="form__err" id="err-phone">Укажите номер телефона</div>
+                </div>
+              </div>
             </div>
 
-            <!-- Членство в церкви -->
-            <div class="form__field">
-              <label>Являетесь ли вы членом церкви АСДРД? <span class="form__req">*</span></label>
-              <div class="form__radio-group">
-                <label class="form__radio">
-                  <input type="radio" name="church_member" value="yes" required />
-                  <span class="form__radio-custom"></span>
-                  Да
-                </label>
-                <label class="form__radio">
-                  <input type="radio" name="church_member" value="no" />
-                  <span class="form__radio-custom"></span>
-                  Нет
-                </label>
-                <label class="form__radio form__radio--other">
-                  <input type="radio" name="church_member" value="other" />
-                  <span class="form__radio-custom"></span>
+            <!-- СЕКЦИЯ 3: Вера и служение -->
+            <div class="form__section">
+              <div class="form__section-title">✝️ Вера и служение</div>
+
+              <div class="form__field">
+                <label>Являетесь ли вы членом церкви АСДРД? <span class="form__req">*</span></label>
+                <div class="form__radio-group form__radio-group--row">
+                  <label class="form__radio">
+                    <input type="radio" name="church_member" value="yes" required />
+                    <span class="form__radio-custom"></span>
+                    Да
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="church_member" value="no" />
+                    <span class="form__radio-custom"></span>
+                    Нет
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="church_member" value="other" />
+                    <span class="form__radio-custom"></span>
+                    Другое
+                  </label>
+                </div>
+                <input class="form__input form__input--other" type="text"
+                  name="church_member_other" placeholder="уточните..." id="church_member_other_input" />
+                <div class="form__err" id="err-church_member">Выберите вариант</div>
+              </div>
+
+              <div class="form__field">
+                <label>Проходили ли вы обучение в других миссионерских школах? <span class="form__req">*</span></label>
+                <div class="form__radio-group form__radio-group--row">
+                  <label class="form__radio">
+                    <input type="radio" name="prev_school" value="yes" required />
+                    <span class="form__radio-custom"></span>
+                    Да
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="prev_school" value="no" />
+                    <span class="form__radio-custom"></span>
+                    Нет
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="prev_school" value="incomplete" />
+                    <span class="form__radio-custom"></span>
+                    Поступил(а), не окончил(а)
+                  </label>
+                </div>
+                <div class="form__err" id="err-prev_school">Выберите вариант</div>
+              </div>
+
+              <div class="form__field">
+                <label>В каких сферах вы служили в церкви? <span class="form__req">*</span></label>
+                <div class="form__check-group form__check-group--grid">
+                  <label class="form__check">
+                    <input type="checkbox" name="ministry" value="evangelism" />
+                    <span class="form__check-custom"></span>
+                    Евангелизация
+                  </label>
+                  <label class="form__check">
+                    <input type="checkbox" name="ministry" value="children" />
+                    <span class="form__check-custom"></span>
+                    Дети
+                  </label>
+                  <label class="form__check">
+                    <input type="checkbox" name="ministry" value="music" />
+                    <span class="form__check-custom"></span>
+                    Музыка
+                  </label>
+                  <label class="form__check">
+                    <input type="checkbox" name="ministry" value="social" />
+                    <span class="form__check-custom"></span>
+                    Помощь нуждающимся
+                  </label>
+                </div>
+                <label class="form__check form__check--other-row">
+                  <input type="checkbox" name="ministry" value="other" />
+                  <span class="form__check-custom"></span>
                   Другое:
-                  <input class="form__input form__input--inline" type="text" name="church_member_other" placeholder="уточните" />
+                  <input class="form__input form__input--inline" type="text"
+                    name="ministry_other" placeholder="укажите" />
                 </label>
+                <div class="form__err" id="err-ministry">Выберите хотя бы один вариант</div>
               </div>
-              <div class="form__err" id="err-church_member">Выберите один из вариантов</div>
             </div>
 
-            <!-- Другие миссионерские школы -->
-            <div class="form__field">
-              <label>Проходили ли вы обучение в других миссионерских школах? <span class="form__req">*</span></label>
-              <div class="form__radio-group">
-                <label class="form__radio">
-                  <input type="radio" name="prev_school" value="yes" required />
-                  <span class="form__radio-custom"></span>
-                  Да
-                </label>
-                <label class="form__radio">
-                  <input type="radio" name="prev_school" value="no" />
-                  <span class="form__radio-custom"></span>
-                  Нет
-                </label>
-                <label class="form__radio">
-                  <input type="radio" name="prev_school" value="incomplete" />
-                  <span class="form__radio-custom"></span>
-                  Поступил(а), но не окончил(а)
-                </label>
-              </div>
-              <div class="form__err" id="err-prev_school">Выберите один из вариантов</div>
-            </div>
+            <!-- СЕКЦИЯ 4: Здоровье и мотивация -->
+            <div class="form__section">
+              <div class="form__section-title">🌱 Дополнительно</div>
 
-            <!-- Сферы служения -->
-            <div class="form__field">
-              <label>В каких сферах вы уже служили в церкви? <span class="form__req">*</span></label>
-              <div class="form__check-group">
-                <label class="form__check">
-                  <input type="checkbox" name="ministry" value="evangelism" />
-                  <span class="form__check-custom"></span>
-                  Евангелизация
-                </label>
-                <label class="form__check">
-                  <input type="checkbox" name="ministry" value="children" />
-                  <span class="form__check-custom"></span>
-                  Дети
-                </label>
-                <label class="form__check">
-                  <input type="checkbox" name="ministry" value="music" />
-                  <span class="form__check-custom"></span>
-                  Музыка
-                </label>
-                <label class="form__check">
-                  <input type="checkbox" name="ministry" value="social" />
-                  <span class="form__check-custom"></span>
-                  Помощь нуждающимся
-                </label>
-                <label class="form__check form__check--other">
-                  <input type="checkbox" name="ministry" value="other" id="ministry_other_cb" />
-                  <span class="form__check-custom"></span>
-                  Другое:
-                  <input class="form__input form__input--inline" type="text" name="ministry_other" placeholder="укажите" />
-                </label>
+              <div class="form__field">
+                <label>Есть ли ограничения по здоровью, о которых нам важно знать? <span class="form__req">*</span></label>
+                <div class="form__radio-group form__radio-group--row">
+                  <label class="form__radio">
+                    <input type="radio" name="health" value="yes" required />
+                    <span class="form__radio-custom"></span>
+                    Да
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="health" value="no" />
+                    <span class="form__radio-custom"></span>
+                    Нет
+                  </label>
+                  <label class="form__radio">
+                    <input type="radio" name="health" value="other" />
+                    <span class="form__radio-custom"></span>
+                    Другое
+                  </label>
+                </div>
+                <input class="form__input form__input--other" type="text"
+                  name="health_other" placeholder="уточните..." id="health_other_input" />
+                <div class="form__err" id="err-health">Выберите вариант</div>
               </div>
-              <div class="form__err" id="err-ministry">Выберите хотя бы один вариант</div>
-            </div>
 
-            <!-- Ограничения по здоровью -->
-            <div class="form__field">
-              <label>Есть ли у вас ограничения по здоровью, о которых нам важно знать? <span class="form__req">*</span></label>
-              <div class="form__radio-group">
-                <label class="form__radio">
-                  <input type="radio" name="health" value="yes" required />
-                  <span class="form__radio-custom"></span>
-                  Да
-                </label>
-                <label class="form__radio">
-                  <input type="radio" name="health" value="no" />
-                  <span class="form__radio-custom"></span>
-                  Нет
-                </label>
-                <label class="form__radio form__radio--other">
-                  <input type="radio" name="health" value="other" />
-                  <span class="form__radio-custom"></span>
-                  Другое:
-                  <input class="form__input form__input--inline" type="text" name="health_other" placeholder="уточните" />
-                </label>
+              <div class="form__field">
+                <label for="motivation">Почему вы хотите поступить? <span class="form__req">*</span></label>
+                <textarea class="form__input form__textarea" id="motivation" name="motivation"
+                  placeholder="Расскажите о своём призвании, духовном пути и ожиданиях от колледжа..."
+                  required></textarea>
+                <div class="form__err" id="err-motivation">Расскажите подробнее (минимум 10 символов)</div>
               </div>
-              <div class="form__err" id="err-health">Выберите один из вариантов</div>
-            </div>
-
-            <!-- Мотивация -->
-            <div class="form__field">
-              <label for="motivation">Почему вы хотите поступить? <span class="form__req">*</span></label>
-              <textarea class="form__input form__textarea" id="motivation" name="motivation"
-                placeholder="Расскажите о своём призвании и ожиданиях..." required></textarea>
-              <div class="form__err" id="err-motivation">Расскажите подробнее (минимум 10 символов)</div>
             </div>
 
             <!-- Кнопки -->
@@ -419,7 +444,7 @@
               <p class="form__note"><span class="form__req">*</span> Обязательные поля</p>
               <div class="form__actions">
                 <button type="reset" class="btn btn--outline">Очистить</button>
-                <button type="submit" class="btn btn--primary">Отправить заявку</button>
+                <button type="submit" class="btn btn--primary">Отправить заявку →</button>
               </div>
             </div>
 
@@ -453,12 +478,7 @@
 
           <!-- Фото здания -->
           <div class="location__photo">
-            <!-- Замените src на реальное фото здания, когда оно будет -->
-            <div class="location__photo-placeholder">
-              <div class="location__photo-icon">🏛️</div>
-              <p>Миссионерский колледж «Маранафа»</p>
-              <span>г. Хынчешты, Молдова</span>
-            </div>
+            <img src="building.jpg" alt="Миссионерский колледж «Маранафа», г. Хынчешты" />
           </div>
 
           <!-- Контактная информация -->

@@ -26,6 +26,25 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// ── Показ поля "Другое" под радио ───────────────────────
+function initOtherFields() {
+  // church_member → other input
+  document.querySelectorAll('input[name="church_member"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const el = document.getElementById('church_member_other_input');
+      if (el) el.classList.toggle('visible', r.value === 'other' && r.checked);
+    });
+  });
+  // health → other input
+  document.querySelectorAll('input[name="health"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const el = document.getElementById('health_other_input');
+      if (el) el.classList.toggle('visible', r.value === 'other' && r.checked);
+    });
+  });
+}
+initOtherFields();
+
 // ── Плавный скролл с offset ───────────────────────────────
 const HEADER_HEIGHT = 68;
 

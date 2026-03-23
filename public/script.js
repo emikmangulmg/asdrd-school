@@ -26,6 +26,17 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// ── Защита email от Cloudflare ───────────────────────────
+(function() {
+  const el = document.getElementById('footer-email');
+  if (el) {
+    const u = 'maranathacollage';
+    const d = 'gmail.com';
+    el.href = 'mailto:' + u + '@' + d;
+    el.textContent = u + '@' + d;
+  }
+})();
+
 // ── Показ поля "Другое" + код страны телефона ────────────
 function initOtherFields() {
   // church_member → other input
